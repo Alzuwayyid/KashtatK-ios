@@ -51,6 +51,12 @@
 		101012432B8CB77200C8B0B9 /* KashtatK */ = {
 			isa = PBXGroup;
 			children = (
+				101C507C2B8CE62300118257 /* Common */,
+				101C507B2B8CE60C00118257 /* Theme */,
+				101C507A2B8CE60100118257 /* Utilities */,
+				101C50792B8CE5E500118257 /* Navigation */,
+				101C50782B8CE5A200118257 /* Models */,
+				101C50772B8CE59A00118257 /* Services */,
 				101012442B8CB77200C8B0B9 /* KashtatKApp.swift */,
 				101012462B8CB77200C8B0B9 /* ContentView.swift */,
 				101012482B8CB77400C8B0B9 /* Assets.xcassets */,
@@ -65,6 +71,48 @@
 				1010124B2B8CB77400C8B0B9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		101C50772B8CE59A00118257 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		101C50782B8CE5A200118257 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		101C50792B8CE5E500118257 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		101C507A2B8CE60100118257 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		101C507B2B8CE60C00118257 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		101C507C2B8CE62300118257 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
