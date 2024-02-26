@@ -11,6 +11,11 @@
 		101012472B8CB77200C8B0B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101012462B8CB77200C8B0B9 /* ContentView.swift */; };
 		101012492B8CB77400C8B0B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 101012482B8CB77400C8B0B9 /* Assets.xcassets */; };
 		1010124C2B8CB77400C8B0B9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1010124B2B8CB77400C8B0B9 /* Preview Assets.xcassets */; };
+		101C507E2B8CE86A00118257 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C507D2B8CE86A00118257 /* Router.swift */; };
+		101C50802B8CE8CA00118257 /* ViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C507F2B8CE8CA00118257 /* ViewSpec.swift */; };
+		101C50822B8CEAF100118257 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50812B8CEAF100118257 /* Views.swift */; };
+		101C50862B8CEE3200118257 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50852B8CEE3200118257 /* HomeRouter.swift */; };
+		101C50882B8CF9FD00118257 /* BaseNavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50872B8CF9FD00118257 /* BaseNavigationStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		101012462B8CB77200C8B0B9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		101012482B8CB77400C8B0B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1010124B2B8CB77400C8B0B9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		101C507D2B8CE86A00118257 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		101C507F2B8CE8CA00118257 /* ViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSpec.swift; sourceTree = "<group>"; };
+		101C50812B8CEAF100118257 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
+		101C50852B8CEE3200118257 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		101C50872B8CF9FD00118257 /* BaseNavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +100,8 @@
 		101C50792B8CE5E500118257 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				101C50842B8CEE2000118257 /* ScreensRouters */,
+				101C50832B8CEDFA00118257 /* Structure */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -111,8 +123,27 @@
 		101C507C2B8CE62300118257 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				101C50812B8CEAF100118257 /* Views.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		101C50832B8CEDFA00118257 /* Structure */ = {
+			isa = PBXGroup;
+			children = (
+				101C507D2B8CE86A00118257 /* Router.swift */,
+				101C507F2B8CE8CA00118257 /* ViewSpec.swift */,
+				101C50872B8CF9FD00118257 /* BaseNavigationStack.swift */,
+			);
+			path = Structure;
+			sourceTree = "<group>";
+		};
+		101C50842B8CEE2000118257 /* ScreensRouters */ = {
+			isa = PBXGroup;
+			children = (
+				101C50852B8CEE3200118257 /* HomeRouter.swift */,
+			);
+			path = ScreensRouters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,7 +217,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				101012472B8CB77200C8B0B9 /* ContentView.swift in Sources */,
+				101C50862B8CEE3200118257 /* HomeRouter.swift in Sources */,
+				101C507E2B8CE86A00118257 /* Router.swift in Sources */,
 				101012452B8CB77200C8B0B9 /* KashtatKApp.swift in Sources */,
+				101C50822B8CEAF100118257 /* Views.swift in Sources */,
+				101C50802B8CE8CA00118257 /* ViewSpec.swift in Sources */,
+				101C50882B8CF9FD00118257 /* BaseNavigationStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +361,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -354,6 +391,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

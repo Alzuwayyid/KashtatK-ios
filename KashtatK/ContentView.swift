@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var homeRouter = HomeRouter(isPresented: .constant(.home))
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        BaseNavigationStack(router: homeRouter, title: "Home") {
+            Text("Hello, world!")
+                .padding()
+                .onTapGesture {
+                    homeRouter.pushProductsList()
+                }
+        }
     }
 }
 
