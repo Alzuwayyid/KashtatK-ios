@@ -31,7 +31,7 @@ struct Hit: Codable {
     let price, rating: Double
     let stock: Int
     let description: String
-    let images: [[String]]
+    let images: String
     let objectID: String
     let highlightResult: HighlightResult
 
@@ -51,7 +51,7 @@ struct Hit: Codable {
 
 // MARK: - HighlightResult
 struct HighlightResult: Codable {
-    let productName, category, description: Category
+    let productName, category, description: Category?
 
     enum CodingKeys: String, CodingKey {
         case productName = "Product Name"

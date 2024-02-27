@@ -12,27 +12,42 @@ import Foundation
 /// way to specify the endpoint and its configuration such as path, method, and other request details.
 enum Endpoints: EndpointProvider {
     case getProducts
-    case attendEvent(id: String)
+    case getProductsByCategory(id: String)
+    case getProductsByPopular(id: String)
+    case getProductsByTrend(id: String)
     /// Configuration for the endpoint, constructed using the `EndpointBuilder`.
     ///
     /// Based on the endpoint case, it sets up the version, HTTP method, path,
     /// and any necessary query items or body parameters required for the request.
     var configuration: EndpointConfiguration {
         switch self {
-        case .getProducts:
-            return EndpointBuilder()
-                .setVersion(.v1)
-                .setMethod(.get)
-                .setPath("/indexes/\(Constants.API.productName)")
-                .build()
-
-        case .attendEvent(let id):
-            return EndpointBuilder()
-                .setVersion(.v1) 
-                .setMethod(.put)
-                .setPath("/api/v2/activity/event/attending")
-                .setQueryItems([URLQueryItem(name: "eventId", value: id)])
-                .build()
+            case .getProducts:
+                return EndpointBuilder()
+                    .setVersion(.v1)
+                    .setMethod(.get)
+                    .setPath("/indexes/finalData")
+                    .build()
+            case .getProductsByCategory(let id):
+                return EndpointBuilder()
+                    .setVersion(.v1)
+                    .setMethod(.get)
+                    .setPath("/indexes/category/")
+                    .setQueryItems([URLQueryItem(name: "query", value: id)])
+                    .build()
+            case .getProductsByPopular(let id):
+                return EndpointBuilder()
+                    .setVersion(.v1)
+                    .setMethod(.get)
+                    .setPath("/indexes/popular/")
+                    .setQueryItems([URLQueryItem(name: "query", value: id)])
+                    .build()
+            case .getProductsByTrend(let id):
+                return EndpointBuilder()
+                    .setVersion(.v1)
+                    .setMethod(.get)
+                    .setPath("/indexes/trends2/")
+                    .setQueryItems([URLQueryItem(name: "query", value: id)])
+                    .build()
         }
     }
 

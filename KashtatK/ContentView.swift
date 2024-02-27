@@ -33,7 +33,7 @@ struct ContentView: View {
 extension ContentView {
     @MainActor
     func getAsyncEvents() async { 
-        let endpoint = Endpoints.getProducts
+        let endpoint = Endpoints.getProductsByPopular(id: "tent")
         Task.init {
             do {
                 let events = try await APITask.shared.asyncRequest(endpoint: endpoint, responseModel: Products.self)
