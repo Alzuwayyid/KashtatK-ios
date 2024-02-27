@@ -19,6 +19,13 @@
 		101C50962B8D14E600118257 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50952B8D14E600118257 /* Utilities.swift */; };
 		101C50982B8D151F00118257 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50972B8D151F00118257 /* Constants.swift */; };
 		101C509A2B8D15A900118257 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50992B8D15A900118257 /* ThemeManager.swift */; };
+		101C509D2B8E05E900118257 /* EndPoint+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C509C2B8E05E900118257 /* EndPoint+Provider.swift */; };
+		101C509F2B8E068F00118257 /* API+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C509E2B8E068F00118257 /* API+Error.swift */; };
+		101C50A12B8E06BF00118257 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50A02B8E06BF00118257 /* Endpoints.swift */; };
+		101C50A32B8E071400118257 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50A22B8E071400118257 /* Types.swift */; };
+		101C50A52B8E074200118257 /* API+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50A42B8E074200118257 /* API+Task.swift */; };
+		101C50A72B8E0D5D00118257 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50A62B8E0D5D00118257 /* Products.swift */; };
+		101C50A92B8E19BB00118257 /* EndPoint+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C50A82B8E19BB00118257 /* EndPoint+Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +42,13 @@
 		101C50952B8D14E600118257 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		101C50972B8D151F00118257 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		101C50992B8D15A900118257 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		101C509C2B8E05E900118257 /* EndPoint+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndPoint+Provider.swift"; sourceTree = "<group>"; };
+		101C509E2B8E068F00118257 /* API+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Error.swift"; sourceTree = "<group>"; };
+		101C50A02B8E06BF00118257 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		101C50A22B8E071400118257 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		101C50A42B8E074200118257 /* API+Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Task.swift"; sourceTree = "<group>"; };
+		101C50A62B8E0D5D00118257 /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		101C50A82B8E19BB00118257 /* EndPoint+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndPoint+Config.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +106,7 @@
 		101C50772B8CE59A00118257 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				101C509B2B8E05CB00118257 /* NetworkLayer */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -99,6 +114,7 @@
 		101C50782B8CE5A200118257 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				101C50A62B8E0D5D00118257 /* Products.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -133,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				101C50812B8CEAF100118257 /* Views.swift */,
+				101C50A22B8E071400118257 /* Types.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -153,6 +170,18 @@
 				101C50852B8CEE3200118257 /* HomeRouter.swift */,
 			);
 			path = ScreensRouters;
+			sourceTree = "<group>";
+		};
+		101C509B2B8E05CB00118257 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				101C50A02B8E06BF00118257 /* Endpoints.swift */,
+				101C509C2B8E05E900118257 /* EndPoint+Provider.swift */,
+				101C50A82B8E19BB00118257 /* EndPoint+Config.swift */,
+				101C509E2B8E068F00118257 /* API+Error.swift */,
+				101C50A42B8E074200118257 /* API+Task.swift */,
+			);
+			path = NetworkLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,12 +256,19 @@
 			files = (
 				101012472B8CB77200C8B0B9 /* ContentView.swift in Sources */,
 				101C50862B8CEE3200118257 /* HomeRouter.swift in Sources */,
+				101C50A12B8E06BF00118257 /* Endpoints.swift in Sources */,
+				101C50A32B8E071400118257 /* Types.swift in Sources */,
 				101C507E2B8CE86A00118257 /* Router.swift in Sources */,
 				101012452B8CB77200C8B0B9 /* KashtatKApp.swift in Sources */,
+				101C509D2B8E05E900118257 /* EndPoint+Provider.swift in Sources */,
+				101C509F2B8E068F00118257 /* API+Error.swift in Sources */,
 				101C50822B8CEAF100118257 /* Views.swift in Sources */,
 				101C50802B8CE8CA00118257 /* ViewSpec.swift in Sources */,
 				101C50962B8D14E600118257 /* Utilities.swift in Sources */,
+				101C50A52B8E074200118257 /* API+Task.swift in Sources */,
+				101C50A92B8E19BB00118257 /* EndPoint+Config.swift in Sources */,
 				101C509A2B8D15A900118257 /* ThemeManager.swift in Sources */,
+				101C50A72B8E0D5D00118257 /* Products.swift in Sources */,
 				101C50882B8CF9FD00118257 /* BaseNavigationStack.swift in Sources */,
 				101C50982B8D151F00118257 /* Constants.swift in Sources */,
 			);
