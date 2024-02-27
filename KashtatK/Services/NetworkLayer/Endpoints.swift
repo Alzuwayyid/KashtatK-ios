@@ -12,6 +12,7 @@ import Foundation
 /// way to specify the endpoint and its configuration such as path, method, and other request details.
 enum Endpoints: EndpointProvider {
     case getProducts
+    case getProductsBy(id: String)
     case getProductsByCategory(id: String)
     case getProductsByPopular(id: String)
     case getProductsByTrend(id: String)
@@ -26,6 +27,13 @@ enum Endpoints: EndpointProvider {
                     .setVersion(.v1)
                     .setMethod(.get)
                     .setPath("/indexes/finalData")
+                    .build()
+            case .getProductsBy(let id):
+                return EndpointBuilder()
+                    .setVersion(.v1)
+                    .setMethod(.get)
+                    .setPath("/indexes/finalData")
+                    .setQueryItems([URLQueryItem(name: "query", value: id)])
                     .build()
             case .getProductsByCategory(let id):
                 return EndpointBuilder()
