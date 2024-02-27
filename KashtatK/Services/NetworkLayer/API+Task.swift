@@ -6,16 +6,30 @@
 //
 
 import SwiftUI
-
+/// Defines the requirements for making asynchronous API requests.
+///
+/// This protocol abstracts the asynchronous request-making process, allowing for generic decoding of the response.
 protocol APIProtocol {
+    /// Performs an asynchronous request to a specified endpoint and decodes the response.
+    ///
+    /// - Parameters:
+    ///   - endpoint: The endpoint to which the request is made, conforming to `EndpointProvider`.
+    ///   - responseModel: The expected model type that the response should be decoded into.
+    /// - Returns: A decoded model of type `T`, where `T` conforms to `Decodable`.
+    /// - Throws: An `APIError` if the request fails or if decoding the response fails.
     func asyncRequest<T: Decodable>(endpoint: EndpointProvider, responseModel: T.Type) async throws -> T
 }
-
+/// A singleton class responsible for executing asynchronous network requests.
+///
+/// `APITask` utilizes the `URLSession` for network communication, adhering to the `APIProtocol`.
+/// It ensures network requests are made asynchronously and handles response decoding and error processing.
 final class APITask: APIProtocol {
     static let shared = APITask()
 
     private init() {}
-    
+    /// Configured `URLSession` for network requests.
+    ///
+    /// This session is configured with default settings, including connectivity checks and timeout intervals.
     var session: URLSession {
         let configuration = URLSessionConfiguration.default
         configuration.waitsForConnectivity = true
@@ -23,6 +37,13 @@ final class APITask: APIProtocol {
         configuration.timeoutIntervalForResource = 300 // seconds for whole resource request to complete ,.
         return URLSession(configuration: configuration)
     }
+    /// Asynchronously sends a request to the specified endpoint and decodes the response.
+    ///
+    /// - Parameters:
+    ///   - endpoint: The `EndpointProvider` specifying the details of the request.
+    ///   - responseModel: The type (`Decodable`) of the model to decode the response into.
+    /// - Returns: A model of type `T` decoded from the response.
+    /// - Throws: `APIError` if there's an issue with network communication or response decoding.
     func asyncRequest<T: Decodable>(endpoint: EndpointProvider, responseModel: T.Type) async throws -> T {
         do {
             let (data, response) = try await session.data(for: endpoint.asURLRequest())
@@ -39,6 +60,13 @@ final class APITask: APIProtocol {
 }
 
 extension APITask {
+    /// Processes the HTTP response, decoding it into the specified model type.
+    ///
+    /// - Parameters:
+    ///   - data: The data returned by the server.
+    ///   - response: The HTTP URL response received from the server.
+    /// - Returns: The decoded model of type `T`.
+    /// - Throws: An `APIError` if the response indicates an error or if decoding fails.
     private func manageResponse<T: Decodable>(data: Data, response: URLResponse) throws -> T {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw APIError(
