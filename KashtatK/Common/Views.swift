@@ -90,3 +90,15 @@ struct NavBarItem {
     let action: () -> Void
 }
 
+struct SearchView: View {
+    // MARK: Properities
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
+                Text("Search ...").foregroundColor(.Neumorphic.secondary)
+                Spacer()
+            }
+        }
+    }
+}

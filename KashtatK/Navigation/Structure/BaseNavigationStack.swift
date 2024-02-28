@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Neumorphic
 /// `BaseNavigationStack` provides a customizable navigation stack container for SwiftUI views.
 /// It integrates with a `Router` to manage navigation and presentation, supporting dynamic content,
 /// custom navigation bar items, and styling options.
@@ -69,20 +70,15 @@ struct BaseNavigationStack<Content: View>: View {
     
     var body: some View {
         NavigationStack(path: router.navigationPath) {
-            VStack(spacing: 0) {
-                content
-            }
-            .overlay(
                 NeumorphicNavigationBar(
                     items: neumorphicNavigationBarItems,
                     showBackButton: showBackButton,
                     title: title,
                     onBack: onBack
                 )
-                .padding(.horizontal, 16),
-                alignment: .top // Align the navigation bar to the top
-                
-            )
+                .background(Color.Neumorphic.main)
+                content
+                .background(Color.Neumorphic.main)
 //            .navigationBarTitle(title)
 //            .navigationBarHidden(isHidden)
 //            .navigationBarTitleDisplayMode(.inline)
