@@ -36,6 +36,7 @@ struct BaseView<Content: View>: View {
 struct NeumorphicNavigationBar: View {
     var items: [NavBarItem]
     var showBackButton: Bool
+    var title: String
     var onBack: (() -> Void)?
 
     var body: some View {
@@ -48,6 +49,9 @@ struct NeumorphicNavigationBar: View {
                         .neumorphicStyle()
                 }
             }
+            Text(title)
+                .font(.system(size: 40))
+                .bold()
             
             Spacer()
             
@@ -56,15 +60,13 @@ struct NeumorphicNavigationBar: View {
                     item.action()
                 }) {
                     item.icon
-                        .neumorphicStyle()
                 }
+                .softButtonStyle(Circle(), mainColor: item.mainColor, textColor: item.secondaryColor, darkShadowColor: Color.Neumorphic.darkShadow, lightShadowColor: Color.Neumorphic.lightShadow)
             }
         }
         .padding()
         .background(Color.Neumorphic.main)
         .cornerRadius(10)
-        .shadow(color: .black.opacity(0.2), radius: 5, x: 5, y: 5)
-        .shadow(color: .white.opacity(0.7), radius: 5, x: -5, y: -5)
     }
 }
 
@@ -83,5 +85,8 @@ extension View {
 struct NavBarItem {
     let id: UUID = UUID()
     let icon: Image
+    let mainColor: Color
+    let secondaryColor: Color
     let action: () -> Void
 }
+

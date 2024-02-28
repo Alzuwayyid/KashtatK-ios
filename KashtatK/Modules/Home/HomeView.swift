@@ -20,10 +20,14 @@ struct HomeView: View {
     var body: some View {
         BaseView {
             BaseNavigationStack(router: homeRouter, title: "Home", neumorphicNavigationBarItems: [
-                NavBarItem(icon: Image(systemName: "house.fill")) {
-                    print("Home tapped")},
-                NavBarItem(icon: Image(systemName: "person.fill")) {
-                    print("Profile tapped")} ]) {
+                NavBarItem(icon: Image(systemName: "heart.fill"), mainColor: Color.white, secondaryColor: Color.blue) {
+                    print("Home tapped")
+                    homeRouter.pushProductsList()
+                },
+                NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green) {
+                    print("Profile tapped")
+                    homeRouter.pushProductsList()
+                } ]) {
                         ZStack {
                             Color.Neumorphic.main.edgesIgnoringSafeArea(.all)
                         }
