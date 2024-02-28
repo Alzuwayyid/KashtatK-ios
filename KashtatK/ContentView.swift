@@ -7,16 +7,18 @@
 
 import SwiftUI
 import Combine
+import SwiftData
 
 struct ContentView: View {
     @StateObject var homeRouter = HomeRouter(isPresented: .constant(.home))
-    @State var products: Products?
+    var products: Products?
+    @Environment(\.modelContext) var context
     @State var apiError: APIError?
-    private var cancellables: Set<AnyCancellable> = []
+    @Query var data: [Products]
     
     var body: some View {
         BaseNavigationStack(router: homeRouter, title: "Home") {
-            Text("Hello, world!")
+            Text("Hello, world! -> \(data.first?.hits.first?.productName ?? "GG")")
                 .padding()
                 .onTapGesture {
                     homeRouter.pushProductsList()
@@ -32,18 +34,26 @@ struct ContentView: View {
 
 extension ContentView {
     @MainActor
-    func getAsyncEvents() async { 
+    func getAsyncEvents() async {
         let endpoint = Endpoints.getProductsByPopular(id: "tent")
-        Task.init {
+        Task {
             do {
                 let events = try await APITask.shared.asyncRequest(endpoint: endpoint, responseModel: Products.self)
-                products = events
+                do {
+                    context.insert(events)
+                    try context.save()
+                } catch {
+                    print("Core Data Error: \(error.localizedDescription)")
+                }
             } catch let error as APIError {
                 apiError = error
+            } catch {
+                print("Unexpected error: \(error.localizedDescription)")
             }
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
