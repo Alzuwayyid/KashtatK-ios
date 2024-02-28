@@ -15,16 +15,27 @@ struct HomeView: View {
     @Environment(\.modelContext) var context
     @State var contentState: ContentStates = ContentStates()
     @Query var data: [Products]
+    @State private var showBackButton = true
     
     var body: some View {
-        BaseView {
-            BaseNavigationStack(router: homeRouter, title: "Home", baseColor: Color.Neumorphic.main) {
-                Text("Hello, world! -> \(data.first?.hits.first?.productName ?? "GG")")
-                    .onTapGesture {
-                        homeRouter.pushProductsList()
-                    }
+        BaseNavigationStack(router: homeRouter, title: "Home", baseColor: Color.Neumorphic.main) {
+            ZStack {
+                Color.Neumorphic.main.edgesIgnoringSafeArea(.all)
             }
-            Color.Neumorphic.main.edgesIgnoringSafeArea(.all)
+            .overlay(
+                NeumorphicNavigationBar(
+                    items: [
+                        NavBarItem(icon: Image(systemName: "house.fill")) { print("Home tapped") },
+                        NavBarItem(icon: Image(systemName: "person.fill")) { print("Profile tapped") }
+                    ],
+                    showBackButton: showBackButton,
+                    onBack: {
+                        showBackButton = false
+                    }
+                )
+                .padding(.horizontal, 16),
+                alignment: .top // Align the navigation bar to the top
+            )
         }
         .onAppear {
             Task {

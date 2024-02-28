@@ -62,7 +62,6 @@ struct BaseNavigationStack<Content: View>: View {
         NavigationStack(path: router.navigationPath) {
             content
                 .navigationBarTitle(title)
-                .background(self.baseColor)
                 .navigationBarHidden(isHidden)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.dark, for: .navigationBar)
@@ -77,7 +76,6 @@ struct BaseNavigationStack<Content: View>: View {
                     router.view(spec: spec, route: .navigation)
                 }
         }
-        .background(self.baseColor)
         .toolbarRole(.editor)
         .sheet(item: router.presentingSheet) { spec in
             router.view(spec: spec, route: .sheet)

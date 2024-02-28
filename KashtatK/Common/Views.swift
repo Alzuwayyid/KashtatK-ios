@@ -32,3 +32,56 @@ struct BaseView<Content: View>: View {
         }
     }
 }
+
+struct NeumorphicNavigationBar: View {
+    var items: [NavBarItem]
+    var showBackButton: Bool
+    var onBack: (() -> Void)?
+
+    var body: some View {
+        HStack {
+            if showBackButton {
+                Button(action: {
+                    onBack?()
+                }) {
+                    Image(systemName: "chevron.left") // Example back button
+                        .neumorphicStyle()
+                }
+            }
+            
+            Spacer()
+            
+            ForEach(items, id: \.id) { item in
+                Button(action: {
+                    item.action()
+                }) {
+                    item.icon
+                        .neumorphicStyle()
+                }
+            }
+        }
+        .padding()
+        .background(Color.Neumorphic.main)
+        .cornerRadius(10)
+        .shadow(color: .black.opacity(0.2), radius: 5, x: 5, y: 5)
+        .shadow(color: .white.opacity(0.7), radius: 5, x: -5, y: -5)
+    }
+}
+
+extension View {
+    func neumorphicStyle() -> some View {
+        self
+            .foregroundColor(Color.gray)
+            .padding()
+            .background(Color.Neumorphic.main)
+            .cornerRadius(8)
+            .shadow(color: .black.opacity(0.2), radius: 2, x: 2, y: 2)
+            .shadow(color: .white.opacity(0.7), radius: 2, x: -2, y: -2)
+    }
+}
+
+struct NavBarItem {
+    let id: UUID = UUID()
+    let icon: Image
+    let action: () -> Void
+}

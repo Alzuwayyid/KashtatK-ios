@@ -74,9 +74,24 @@ struct CustomTabBar: View {
 }
 
 struct SettingsView: View {
+    @State private var showBackButton = true
     var body: some View {
         // Your Settings view content here
-        Text("Settings View").frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack {
+            NeumorphicNavigationBar(
+                items: [
+                    NavBarItem(icon: Image(systemName: "house.fill")) { print("Home tapped") },
+                    NavBarItem(icon: Image(systemName: "person.fill")) { print("Profile tapped") }
+                ],
+                showBackButton: showBackButton,
+                onBack: {
+                    // Handle back navigation
+                    showBackButton = false
+                    // Pop view from your custom navigation stack here
+                }
+            )
+            Text("Settings View").frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
 }
 
