@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		101012452B8CB77200C8B0B9 /* KashtatKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101012442B8CB77200C8B0B9 /* KashtatKApp.swift */; };
-		101012472B8CB77200C8B0B9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101012462B8CB77200C8B0B9 /* ContentView.swift */; };
+		101012472B8CB77200C8B0B9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101012462B8CB77200C8B0B9 /* HomeView.swift */; };
 		101012492B8CB77400C8B0B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 101012482B8CB77400C8B0B9 /* Assets.xcassets */; };
 		1010124C2B8CB77400C8B0B9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1010124B2B8CB77400C8B0B9 /* Preview Assets.xcassets */; };
 		101C507E2B8CE86A00118257 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C507D2B8CE86A00118257 /* Router.swift */; };
@@ -29,12 +29,13 @@
 		102C62762B8F6E6A0064A17B /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62752B8F6E6A0064A17B /* CartModel.swift */; };
 		102C62782B8F70110064A17B /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62772B8F70110064A17B /* SearchModel.swift */; };
 		102C627A2B8F71190064A17B /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62792B8F71190064A17B /* FilterModel.swift */; };
+		102C62802B8F79280064A17B /* HomeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C627F2B8F79280064A17B /* HomeServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		101012412B8CB77200C8B0B9 /* KashtatK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KashtatK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		101012442B8CB77200C8B0B9 /* KashtatKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KashtatKApp.swift; sourceTree = "<group>"; };
-		101012462B8CB77200C8B0B9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		101012462B8CB77200C8B0B9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		101012482B8CB77400C8B0B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1010124B2B8CB77400C8B0B9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		101C507D2B8CE86A00118257 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -55,6 +56,7 @@
 		102C62752B8F6E6A0064A17B /* CartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
 		102C62772B8F70110064A17B /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		102C62792B8F71190064A17B /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
+		102C627F2B8F79280064A17B /* HomeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 		101012432B8CB77200C8B0B9 /* KashtatK */ = {
 			isa = PBXGroup;
 			children = (
+				102C627B2B8F722B0064A17B /* Modules */,
 				101C507C2B8CE62300118257 /* Common */,
 				101C507B2B8CE60C00118257 /* Theme */,
 				101C507A2B8CE60100118257 /* Utilities */,
@@ -94,7 +97,6 @@
 				101C50782B8CE5A200118257 /* Models */,
 				101C50772B8CE59A00118257 /* Services */,
 				101012442B8CB77200C8B0B9 /* KashtatKApp.swift */,
-				101012462B8CB77200C8B0B9 /* ContentView.swift */,
 				101012482B8CB77400C8B0B9 /* Assets.xcassets */,
 				1010124A2B8CB77400C8B0B9 /* Preview Content */,
 			);
@@ -193,6 +195,23 @@
 			path = NetworkLayer;
 			sourceTree = "<group>";
 		};
+		102C627B2B8F722B0064A17B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				102C627C2B8F72310064A17B /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		102C627C2B8F72310064A17B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				101012462B8CB77200C8B0B9 /* HomeView.swift */,
+				102C627F2B8F79280064A17B /* HomeServices.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -263,9 +282,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				101012472B8CB77200C8B0B9 /* ContentView.swift in Sources */,
+				101012472B8CB77200C8B0B9 /* HomeView.swift in Sources */,
 				102C62762B8F6E6A0064A17B /* CartModel.swift in Sources */,
 				101C50862B8CEE3200118257 /* HomeRouter.swift in Sources */,
+				102C62802B8F79280064A17B /* HomeServices.swift in Sources */,
 				101C50A12B8E06BF00118257 /* Endpoints.swift in Sources */,
 				101C50A32B8E071400118257 /* Types.swift in Sources */,
 				101C507E2B8CE86A00118257 /* Router.swift in Sources */,

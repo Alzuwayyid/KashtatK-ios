@@ -12,7 +12,7 @@ import SwiftData
 struct KashtatKApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView2()
         }
         .modelContainer(for: [Products.self])
     }
@@ -79,13 +79,6 @@ struct CustomTabBar: View {
             .padding(.vertical, 8)
             .foregroundColor(self.selectedTab == tab ? .blue : .gray)
         }
-    }
-}
-
-struct HomeView: View {
-    var body: some View {
-        // Your Home view content here
-        Text("Home View").frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
