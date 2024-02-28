@@ -43,3 +43,25 @@ extension URLRequest {
         return components.joined(separator: " ")
     }
 }
+
+struct ContentStates {
+    var isError: Bool = false
+    var isSuccess: Bool = false
+    var isLoading: Bool = false
+    var errorModel: ErrorModal?
+}
+
+struct ErrorModal: Equatable {
+    var id = UUID()
+    var errorMessage: String?
+    var action: (() -> Void)?
+    
+    init(errorMessage: String? = nil, action: (() -> Void)? = nil) {
+        self.errorMessage = errorMessage
+        self.action = action
+    }
+    
+    static func == (lhs: ErrorModal, rhs: ErrorModal) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
