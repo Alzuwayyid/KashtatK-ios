@@ -40,48 +40,69 @@ struct BaseNavigationStack<Content: View>: View {
     var content: Content
     var leftBarButton: (() -> AnyView)?
     var rightBarButton: (() -> AnyView)?
+    var neumorphicNavigationBarItems: [NavBarItem] = []
+    var showBackButton: Bool = false
+    var onBack: (() -> Void)? = nil
     
     init(router: Router,
          title: String,
          baseColor: SwiftUI.Color = .clear,
+         neumorphicNavigationBarItems: [NavBarItem] = [],
          isLoading: Bool = false,
          isHidden: Bool = false,
          @ViewBuilder content: () -> Content,
          leftBarButton: (() -> AnyView)? = nil,
-         rightBarButton: (() -> AnyView)? = nil) {
-        _router = StateObject(wrappedValue: router )
+         rightBarButton: (() -> AnyView)? = nil,
+         showBackButton: Bool = false,
+         onBack: (() -> Void)? = nil) {
+        _router = StateObject(wrappedValue: router)
         self.title = title
         self.baseColor = baseColor
         self.isHidden = isHidden
         self.content = content()
         self.leftBarButton = leftBarButton
         self.rightBarButton = rightBarButton
+        self.neumorphicNavigationBarItems = neumorphicNavigationBarItems
+        self.showBackButton = showBackButton
+        self.onBack = onBack
     }
     
     var body: some View {
         NavigationStack(path: router.navigationPath) {
-            content
-                .navigationBarTitle(title)
-                .navigationBarHidden(isHidden)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbarColorScheme(.dark, for: .navigationBar)
-                .toolbarBackground(
-                    self.baseColor,
-                    for: .navigationBar)
-                .navigationBarItems(
-                    leading: leftBarButton?(),
-                    trailing: rightBarButton?()
+            VStack(spacing: 0) {
+                content
+            }
+            .overlay(
+                NeumorphicNavigationBar(
+                    items: neumorphicNavigationBarItems,
+                    showBackButton: showBackButton,
+                    onBack: onBack
                 )
-                .navigationDestination(for: ViewSpec.self) { spec in
-                    router.view(spec: spec, route: .navigation)
-                }
+                .padding(.horizontal, 16),
+                alignment: .top // Align the navigation bar to the top
+                
+            )
+//            .navigationBarTitle(title)
+//            .navigationBarHidden(isHidden)
+//            .navigationBarTitleDisplayMode(.inline)
+//            .toolbarColorScheme(.dark, for: .navigationBar)
+//            .toolbarBackground(
+//                self.baseColor,
+//                for: .navigationBar)
+            .navigationBarItems(
+                leading: leftBarButton?(),
+                trailing: rightBarButton?()
+            )
+            .navigationDestination(for: ViewSpec.self) { spec in
+                router.view(spec: spec, route: .navigation)
+            }
         }
-        .toolbarRole(.editor)
+//        .toolbarRole(.editor)
         .sheet(item: router.presentingSheet) { spec in
             router.view(spec: spec, route: .sheet)
-        }.fullScreenCover(item: router.presentingFullScreen) { spec in
+        }
+        .fullScreenCover(item: router.presentingFullScreen) { spec in
             router.view(spec: spec, route: .fullScreen)
         }
     }
 }
-

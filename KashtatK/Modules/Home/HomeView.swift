@@ -18,24 +18,16 @@ struct HomeView: View {
     @State private var showBackButton = true
     
     var body: some View {
-        BaseNavigationStack(router: homeRouter, title: "Home", baseColor: Color.Neumorphic.main) {
-            ZStack {
-                Color.Neumorphic.main.edgesIgnoringSafeArea(.all)
-            }
-            .overlay(
-                NeumorphicNavigationBar(
-                    items: [
-                        NavBarItem(icon: Image(systemName: "house.fill")) { print("Home tapped") },
-                        NavBarItem(icon: Image(systemName: "person.fill")) { print("Profile tapped") }
-                    ],
-                    showBackButton: showBackButton,
-                    onBack: {
-                        showBackButton = false
+        BaseView {
+            BaseNavigationStack(router: homeRouter, title: "Home", neumorphicNavigationBarItems: [
+                NavBarItem(icon: Image(systemName: "house.fill")) {
+                    print("Home tapped")},
+                NavBarItem(icon: Image(systemName: "person.fill")) {
+                    print("Profile tapped")} ]) {
+                        ZStack {
+                            Color.Neumorphic.main.edgesIgnoringSafeArea(.all)
+                        }
                     }
-                )
-                .padding(.horizontal, 16),
-                alignment: .top // Align the navigation bar to the top
-            )
         }
         .onAppear {
             Task {
