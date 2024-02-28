@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import SwiftData
+import Neumorphic
 
 struct HomeView: View {
     @StateObject var homeRouter = HomeRouter(isPresented: .constant(.home))
@@ -16,16 +17,18 @@ struct HomeView: View {
     @Query var data: [Products]
     
     var body: some View {
-        BaseNavigationStack(router: homeRouter, title: "Home") {
-            Text("Hello, world! -> \(data.first?.hits.first?.productName ?? "GG")")
-                .padding()
-                .onTapGesture {
-                    homeRouter.pushProductsList()
-                }
+        BaseView {
+            BaseNavigationStack(router: homeRouter, title: "Home", baseColor: Color.Neumorphic.main) {
+                Text("Hello, world! -> \(data.first?.hits.first?.productName ?? "GG")")
+                    .onTapGesture {
+                        homeRouter.pushProductsList()
+                    }
+            }
+            Color.Neumorphic.main.edgesIgnoringSafeArea(.all)
         }
         .onAppear {
             Task {
-                await getProducts()
+//                await getProducts()
             }
         }
     }

@@ -1,40 +1,31 @@
 //
-//  KashtatKApp.swift
+//  TabViews.swift
 //  KashtatK
 //
-//  Created by Mohammed on 26/02/2024.
+//  Created by Mohammed on 28/02/2024.
 //
 
 import SwiftUI
-import SwiftData
 
-@main
-struct KashtatKApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView2()
-        }
-        .modelContainer(for: [Products.self])
-    }
-}
-
-struct ContentView2: View {
+struct TabViews: View {
     @State private var selectedTab: Tab = .home
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Content based on selected tab
-            switch selectedTab {
-            case .home:
-                HomeView()
-            case .settings:
-                SettingsView()
+        BaseView {
+            VStack(spacing: 0) {
+                // Content based on selected tab
+                switch selectedTab {
+                case .home:
+                    HomeView()
+                case .settings:
+                    SettingsView()
+                }
+                
+                // Custom Tab Bar
+                CustomTabBar(selectedTab: $selectedTab)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 10)
             }
-            
-            // Custom Tab Bar
-            CustomTabBar(selectedTab: $selectedTab)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 10)
         }
     }
 }
@@ -88,3 +79,4 @@ struct SettingsView: View {
         Text("Settings View").frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+
