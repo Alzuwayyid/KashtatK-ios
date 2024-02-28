@@ -34,34 +34,44 @@ struct BaseView<Content: View>: View {
 }
 
 struct NeumorphicNavigationBar: View {
+    enum TitleType {
+        case main, subScreen
+    }
+    // MARK: Properties
     var items: [NavBarItem]
     var showBackButton: Bool
     var title: String
+    var titleType: TitleType
     var onBack: (() -> Void)?
 
     var body: some View {
-        HStack {
-            if showBackButton {
-                Button(action: {
-                    onBack?()
-                }) {
-                    Image(systemName: "chevron.left") // Example back button
-                        .neumorphicStyle()
+        ZStack {
+            HStack {
+                if showBackButton {
+                    Button(action: {
+                        onBack?()
+                    }) {
+                        Image(systemName: "chevron.left") // Example back button
+                            .neumorphicStyle()
+                    }
                 }
+                Spacer()
             }
+            // Title positioned absolutely in the center
             Text(title)
-                .font(.system(size: 40))
                 .bold()
-            
-            Spacer()
-            
-            ForEach(items, id: \.id) { item in
-                Button(action: {
-                    item.action()
-                }) {
-                    item.icon
+                .font(.system(size: titleType == .main ? 40 : 20)) // Conditional font size
+                .frame(maxWidth: .infinity, alignment: titleType == .main ? .leading : .center)
+            HStack {
+                Spacer()
+                ForEach(items, id: \.id) { item in
+                    Button(action: {
+                        item.action()
+                    }) {
+                        item.icon
+                    }
+                    .softButtonStyle(Circle(), mainColor: item.mainColor, textColor: item.secondaryColor, darkShadowColor: Color.Neumorphic.darkShadow, lightShadowColor: Color.Neumorphic.lightShadow)
                 }
-                .softButtonStyle(Circle(), mainColor: item.mainColor, textColor: item.secondaryColor, darkShadowColor: Color.Neumorphic.darkShadow, lightShadowColor: Color.Neumorphic.lightShadow)
             }
         }
         .padding()
@@ -69,6 +79,8 @@ struct NeumorphicNavigationBar: View {
         .cornerRadius(10)
     }
 }
+
+
 
 extension View {
     func neumorphicStyle() -> some View {

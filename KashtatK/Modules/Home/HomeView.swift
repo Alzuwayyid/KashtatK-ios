@@ -34,6 +34,8 @@ struct HomeView: View {
                     SearchBarView {
                         homeRouter.pushSearchScreen()
                     }
+                    Text("CONTENT")
+                        .padding(.top, 300)
                         Spacer()
                         .padding(.bottom, 0)
                 }

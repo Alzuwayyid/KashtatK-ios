@@ -97,6 +97,7 @@ struct SettingsView: View {
                     NavBarItem(icon: Image(systemName: "person.fill"), mainColor: Color.white, secondaryColor: Color.blue) { print("Profile tapped") }
                 ],
                 showBackButton: showBackButton, title: "Settings",
+                titleType: .main,
                 onBack: {
                     // Handle back navigation
                     showBackButton = false

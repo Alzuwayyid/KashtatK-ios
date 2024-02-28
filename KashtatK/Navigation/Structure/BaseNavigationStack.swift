@@ -73,7 +73,8 @@ struct BaseNavigationStack<Content: View>: View {
                 NeumorphicNavigationBar(
                     items: neumorphicNavigationBarItems,
                     showBackButton: showBackButton,
-                    title: title,
+                    title: title, 
+                    titleType: .main,
                     onBack: onBack
                 )
                 .background(Color.Neumorphic.main)

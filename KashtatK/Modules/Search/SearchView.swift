@@ -18,7 +18,8 @@ struct SearchView: View {
             NeumorphicNavigationBar(
                 items: neumorphicNavigationBarItems,
                 showBackButton: true,
-                title: "Search",
+                title: "Search", 
+                titleType: .subScreen,
                 onBack: {
                     router.dismiss()
                 }
