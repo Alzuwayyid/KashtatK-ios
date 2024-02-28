@@ -12,7 +12,7 @@ import Neumorphic
 
 struct HomeView: View {
     // MARK: Properities
-    @StateObject var homeRouter = HomeRouter(isPresented: .constant(.home))
+    @StateObject var homeRouter: HomeRouter
     @Environment(\.modelContext) var context
     @Query var data: [Products]
     @State private var showBackButton = true
@@ -21,7 +21,7 @@ struct HomeView: View {
     
     var body: some View {
         BaseNavigationStack(router: homeRouter, title: "Home", neumorphicNavigationBarItems: [
-            NavBarItem(icon: Image(systemName: "heart.fill"), mainColor: Color.white, secondaryColor: Color.blue) {
+            NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue) {
                 print("Home tapped")
                 homeRouter.pushProductsList()
             },
@@ -31,16 +31,9 @@ struct HomeView: View {
             } ]) {
                 ZStack(alignment: .top) {
                     Color.Neumorphic.main.ignoresSafeArea()
-                        SearchView()
-                            .padding(.horizontal, 16)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .background(
-                                RoundedRectangle(cornerRadius: 30).fill(Color.Neumorphic.main)
-                                    .softInnerShadow(RoundedRectangle(cornerRadius: 30), darkShadow: .Neumorphic.darkShadow, lightShadow: .Neumorphic.lightShadow, spread: 0.05, radius: 2)
-                            ).onTapGesture {
-                                print("SEARCHHH")
-                            }
+                    SearchBarView {
+                        homeRouter.pushSearchScreen()
+                    }
                         Spacer()
                         .padding(.bottom, 0)
                 }

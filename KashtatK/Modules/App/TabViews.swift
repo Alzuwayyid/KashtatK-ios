@@ -11,7 +11,7 @@ import Neumorphic
 struct TabViews: View {
     // State variable to track the currently selected tab.
     @State private var selectedTab: Tab = .home
-    
+    @StateObject var homeRouter = HomeRouter(isPresented: .constant(.home))
     var body: some View {
         // BaseView is a custom container that could provide common styling or navigation.
         BaseView {
@@ -19,7 +19,8 @@ struct TabViews: View {
                 // Switching the displayed content view based on the currently selected tab.
                 switch selectedTab {
                 case .home:
-                    HomeView()
+                        HomeView(homeRouter: homeRouter)
+                            .environmentObject(homeRouter)
                 case .settings:
                     SettingsView()
                 }

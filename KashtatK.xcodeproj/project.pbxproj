@@ -32,6 +32,7 @@
 		102C62802B8F79280064A17B /* HomeServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C627F2B8F79280064A17B /* HomeServices.swift */; };
 		102C62832B8F7E250064A17B /* TabViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62822B8F7E250064A17B /* TabViews.swift */; };
 		102C62862B8F7EA10064A17B /* Neumorphic in Frameworks */ = {isa = PBXBuildFile; productRef = 102C62852B8F7EA10064A17B /* Neumorphic */; };
+		102C62892B8FC5470064A17B /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62882B8FC5470064A17B /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		102C62792B8F71190064A17B /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		102C627F2B8F79280064A17B /* HomeServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeServices.swift; sourceTree = "<group>"; };
 		102C62822B8F7E250064A17B /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
+		102C62882B8FC5470064A17B /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 		102C627B2B8F722B0064A17B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				102C62872B8FC53C0064A17B /* Search */,
 				102C62812B8F7E150064A17B /* App */,
 				102C627C2B8F72310064A17B /* Home */,
 			);
@@ -223,6 +226,14 @@
 				102C62822B8F7E250064A17B /* TabViews.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		102C62872B8FC53C0064A17B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				102C62882B8FC5470064A17B /* SearchView.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +325,7 @@
 				101C50822B8CEAF100118257 /* Views.swift in Sources */,
 				101C50802B8CE8CA00118257 /* ViewSpec.swift in Sources */,
 				102C62832B8F7E250064A17B /* TabViews.swift in Sources */,
+				102C62892B8FC5470064A17B /* SearchView.swift in Sources */,
 				101C50962B8D14E600118257 /* Utilities.swift in Sources */,
 				101C50A52B8E074200118257 /* API+Task.swift in Sources */,
 				101C50A92B8E19BB00118257 /* EndPoint+Config.swift in Sources */,

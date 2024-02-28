@@ -9,7 +9,7 @@ import SwiftUI
 /// `ViewSpec` defines specific views that can be navigated within the application.
 /// It serves as a strongly-typed enumeration of all views that are part of the navigation flow.
 enum ViewSpec {
-    case home, productsList
+    case home, productsList, search
 }
 
 extension ViewSpec: Identifiable {
@@ -21,6 +21,8 @@ extension ViewSpec: Identifiable {
                 return 1
             case .productsList:
                 return 2
+            case .search:
+                return 3
         }
     }
 }

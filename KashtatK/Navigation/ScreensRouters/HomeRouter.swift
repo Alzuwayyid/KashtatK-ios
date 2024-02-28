@@ -12,10 +12,14 @@ class HomeRouter: Router {
     func pushProductsList() {
         navigateTo(.productsList)
     }
+    
+    func pushSearchScreen() {
+        navigateTo(.search)
+    }
     /// Overrides the `view(spec:route:)` method to provide specific view instances based on `ViewSpec` and `Route`.
     /// This method should be used to return the actual view for the specified `ViewSpec` within the home navigation context.
     override func view(spec: ViewSpec, route: Router.Route) -> AnyView {
-        buildView(spec: spec, route: route).earseToAnyView()
+        AnyView(buildView(spec: spec, route: route).environmentObject(self))
     }
 }
 
@@ -30,6 +34,8 @@ private extension HomeRouter {
         switch spec {
             case .productsList:
                 Text("Products list").earseToAnyView()
+            case .search:
+                SearchView()
             default:
                 Text("").earseToAnyView()
         }

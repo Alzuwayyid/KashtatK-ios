@@ -90,14 +90,25 @@ struct NavBarItem {
     let action: () -> Void
 }
 
-struct SearchView: View {
+struct SearchBarView: View {
     // MARK: Properities
+    var action: () -> ()
+    
     var body: some View {
         VStack {
             HStack {
                 Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
                 Text("Search ...").foregroundColor(.Neumorphic.secondary)
                 Spacer()
+            }
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(
+                RoundedRectangle(cornerRadius: 30).fill(Color.Neumorphic.main)
+                    .softInnerShadow(RoundedRectangle(cornerRadius: 30), darkShadow: .Neumorphic.darkShadow, lightShadow: .Neumorphic.lightShadow, spread: 0.05, radius: 2)
+            ).onTapGesture {
+                action()
             }
         }
     }
