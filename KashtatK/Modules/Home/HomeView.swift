@@ -26,7 +26,7 @@ struct HomeView: View {
                 homeRouter.pushProductsList()
             },
             NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green) {
-                print("Profile tapped")
+                
                 homeRouter.pushProductsList()
             } ]) {
                 ZStack(alignment: .top) {
@@ -54,7 +54,7 @@ extension HomeView {
     func getProducts() async {
         Task {
             do {
-                let loadedProducts = try await HomeServices.getProducts(for: "tent")
+                let loadedProducts = try await HomeServices.getPopularProducts(for: "tent")
                 context.insert(loadedProducts)
                 try context.save()
             } catch {

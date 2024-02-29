@@ -125,3 +125,20 @@ struct SearchBarView: View {
         }
     }
 }
+
+struct BaseAsyncImage: View {
+    // MARK: Properities
+    let url: String
+    var height: CGFloat = 90
+    var width: CGFloat = 90
+    
+    var body: some View {
+        AsyncImage(url: URL(string: url)) { image in
+            image.resizable()
+                 .scaledToFit()
+                 .frame(width: width, height: height) 
+        } placeholder: {
+            ProgressView()
+        }
+    }
+}

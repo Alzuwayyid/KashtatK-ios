@@ -33,7 +33,7 @@ private extension HomeRouter {
     func buildView(spec: ViewSpec, route: Route) -> some View {
         switch spec {
             case .productsList:
-                Text("Products list").earseToAnyView()
+                ProductsListView()
             case .search:
                 SearchView()
             default:
