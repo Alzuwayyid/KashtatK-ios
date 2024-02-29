@@ -14,6 +14,7 @@ struct KashtatKApp: App {
     var body: some Scene {
         WindowGroup {
             TabViews()
+                .preferredColorScheme(.light)
         }
         .modelContainer(for: [Products.self, Hit.self, HighlightResult.self, Category.self, SearchModel.self])
     }
