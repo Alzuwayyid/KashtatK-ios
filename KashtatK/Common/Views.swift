@@ -7,12 +7,22 @@
 
 import SwiftUI
 import Neumorphic
+import CoreGraphics
+import CoreImage
 
 extension View {
     /// Converts the invoking view to `AnyView` for type erasure.
     /// Useful for returning different types of views from a single function or when a view's type needs to be abstracted.
     func earseToAnyView() -> AnyView {
         return AnyView(self)
+    }
+}
+
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
     }
 }
 
@@ -131,14 +141,166 @@ struct BaseAsyncImage: View {
     let url: String
     var height: CGFloat = 90
     var width: CGFloat = 90
-    
+    var isScaleToFill = false
     var body: some View {
         AsyncImage(url: URL(string: url)) { image in
-            image.resizable()
-                 .scaledToFit()
-                 .frame(width: width, height: height) 
+            if isScaleToFill {
+                image.resizable()
+                     .scaledToFill()
+                     .frame(width: width, height: height)
+            } else {
+                image.resizable()
+                     .scaledToFit()
+                     .frame(width: width, height: height)
+            }
         } placeholder: {
             ProgressView()
+        }
+    }
+}
+
+class ImageColorViewModel: ObservableObject {
+    @Published var dominantColor1: Color = .clear
+    @Published var dominantColor2: Color = .clear
+}
+
+extension ImageColorViewModel {
+    func loadImageAndAnalyzeColors(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, let uiImage = UIImage(data: data) else {
+                return
+            }
+
+            // Resize image for efficiency in color analysis
+            let resizedImage = uiImage.resized(to: CGSize(width: 100, height: 100))
+            
+            // Extract dominant colors from the resized image
+            let dominantColors = self.analyzeDominantColors(in: resizedImage)
+            
+            // Update the published properties on the main thread
+            DispatchQueue.main.async {
+                self.dominantColor1 = dominantColors.0
+                self.dominantColor2 = dominantColors.1
+            }
+        }.resume()
+    }
+    
+    private func analyzeDominantColors(in image: UIImage) -> (Color, Color) {
+        guard let ciImage = CIImage(image: image) else { return (.clear, .clear) }
+        
+        // Using CoreImage's CFAreaHistogram to analyze the image's color histogram
+        let context = CIContext(options: nil)
+        guard let averageFilter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: ciImage]) else { return (.clear, .clear) }
+        averageFilter.setValue(CIVector(cgRect: ciImage.extent), forKey: kCIInputExtentKey)
+        
+        var dominantColor1 = Color.clear
+        var dominantColor2 = Color.clear
+        
+        if let outputImage = averageFilter.outputImage,
+           let bitmap = context.createCGImage(outputImage, from: CGRect(x: 0, y: 0, width: 1, height: 1)),
+           let data = CFDataGetBytePtr(bitmap.dataProvider!.data) {
+            let red = CGFloat(data[0]) / 255.0
+            let green = CGFloat(data[1]) / 255.0
+            let blue = CGFloat(data[2]) / 255.0
+            let alpha = CGFloat(data[3]) / 255.0
+            dominantColor1 = Color(red: red, green: green, blue: blue, opacity: alpha)
+            
+            // For simplicity, let's assume the second dominant color is a lighter or darker variant of the first
+            // In a real scenario, you might perform additional analysis to find another distinct color
+            let adjustedBrightness = max(red, green, blue) > 0.5 ? 0.8 : 0.2
+            dominantColor2 = Color(red: red * adjustedBrightness, green: green * adjustedBrightness, blue: blue * adjustedBrightness)
+        }
+        
+        return (dominantColor1, dominantColor2)
+    }
+}
+
+import SwiftUI
+
+struct GradientBackgroundView: View {
+    let imageUrl: URL
+    @StateObject private var viewModel = ImageColorViewModel()
+    
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [viewModel.dominantColor1.opacity(0.5), viewModel.dominantColor2.opacity(0.5)]), startPoint: .leading, endPoint: .trailing)
+            .animation(.easeInOut(duration: 1.5), value: viewModel.dominantColor1)
+            .animation(.easeInOut(duration: 1.5), value: viewModel.dominantColor2)
+            .overlay(
+                AsyncImage(url: imageUrl) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .padding(25)
+                    case .failure:
+                        Image(systemName: "photo")
+                    @unknown default:
+                        EmptyView()
+                    }
+                }
+            )
+            .edgesIgnoringSafeArea(.all)
+            .onAppear {
+                viewModel.loadImageAndAnalyzeColors(from: imageUrl)
+            }
+    }
+}
+
+
+
+struct NeumorphicCircleView: View {
+    enum Mode {
+        case cart(counter: Int)
+        case rating(value: Double)
+    }
+    
+    var mode: Mode
+    var imageStr = "checkmark.circle.fill"
+    
+    var body: some View {
+        ZStack {
+            // Main circle with an image in the center
+            Circle()
+                .fill(Color.gray.opacity(0.2)) // Adjust the color to match your background or preference
+                .frame(width: 50, height: 50)
+                .shadow(color: .white, radius: 8, x: -8, y: -8) // Light source from top-left
+                .shadow(color: .black.opacity(0.2), radius: 8, x: 8, y: 8) // Shadow to the bottom-right
+                .overlay(
+                    Image(systemName: imageStr) // Example system image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 25, height: 25) // Adjust the size as needed
+                        .foregroundColor(.gray) // Icon color
+                )
+            
+            // Conditional overlay based on mode
+            switch mode {
+            case .cart(let counter):
+                // Counter circle for cart
+                Circle()
+                    .fill(Color.green.opacity(0.9)) // Counter background color
+                    .frame(width: 20, height: 20)
+                    .overlay(
+                        Text("\(counter)")
+                            .foregroundColor(.white)
+                    )
+                    .offset(x: 25, y: -25) // Adjust position to top-right
+                
+            case .rating(let value):
+                    Circle()
+                        .fill(Color.yellow.opacity(0.9)) // Counter background color
+                        .frame(width: 25, height: 20)
+                        .overlay(
+                            // Rating value
+                            Text(String(format: "%.1f", value))
+                                .font(.system(size: 11))
+                                .foregroundColor(.white)
+                        )
+                        .offset(x: 25, y: -25) // Adjust position to top-right
+            }
         }
     }
 }

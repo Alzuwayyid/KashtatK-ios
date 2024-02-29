@@ -37,6 +37,9 @@ struct ProductsListView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(data.first?.hits ?? []) { product in
                             ProductItem(product: product)
+                                .onTapGesture {
+                                    router.pushProductDetails(with: product)
+                                }
                         }
                     }
                     .padding()
@@ -61,7 +64,6 @@ extension ProductsListView {
             do {
                 let loadedProducts = try await HomeServices.getProducts()
                 context.insert(loadedProducts)
-                try context.save()
             } catch {
                 print("Error: \(error.localizedDescription)")
                 contentState.errorModel = .init(errorMessage: error.localizedDescription)
@@ -69,11 +71,3 @@ extension ProductsListView {
         }
     }
 }
-
-//// SwiftUI Preview
-//struct ProductsListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProductsListView()
-//            .previewLayout(.sizeThatFits)
-//    }
-//}
