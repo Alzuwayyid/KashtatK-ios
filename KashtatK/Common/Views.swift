@@ -135,16 +135,18 @@ struct SearchBarView: View {
         }
     }
 }
-
+            
 struct BaseSearchView: View {
     // MARK: Properities
     @Binding var text: String
+    @FocusState var isTextFieldFocused: Bool
     
     var body: some View {
         VStack {
             HStack {
                 Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
                 TextField("Search ...", text: $text)
+                    .focused($isTextFieldFocused)
                 Spacer()
             }
             .padding(.horizontal, 16)

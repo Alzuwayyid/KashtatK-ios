@@ -87,7 +87,7 @@ extension ProductsListView {
         do {
             try context.delete(model: Products.self)
         } catch {
-            print("Failed to delete all schools.")
+            print("Failed to delete all.")
         }
     }
 }

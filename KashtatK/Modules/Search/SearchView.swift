@@ -17,6 +17,8 @@ struct SearchView: View {
     @State var data: ProductObjectModel?
     @State var contentState: ContentStates = ContentStates()
     @State var query: String = ""
+    @FocusState var isTextFieldFouced
+    @Query var savedSearch: [SearchModel]
     
     var body: some View {
         VStack {
@@ -34,12 +36,26 @@ struct SearchView: View {
             )
             ScrollView {
                 VStack(spacing: 25) {
-                    BaseSearchView(text: $query)
+                    BaseSearchView(text: $query, isTextFieldFocused: _isTextFieldFouced)
                         .padding(.horizontal, 16)
+                    ForEach(savedSearch) { saved in
+                        SearchItem(id: saved.searchedQueries, rightImage: "xmark") {
+                            withAnimation {
+                                context.delete(saved)
+                            }
+                        }
+                        .onTapGesture {
+                            router.pushProductsList(with: saved.searchedQueries)
+                        }
+                    }
+                    .padding(.horizontal, 32)
                     if let hits = data?.hits{
                         ForEach(hits, id: \.id) { product in
                             SearchItem(id: product.productName) { }
                             .onTapGesture {
+                                if isTextFieldFouced {
+                                    saveSearchQuery()
+                                }
                                 router.pushProductsList(with: product.productName)
                             }
                         }
@@ -70,12 +86,15 @@ extension SearchView {
             do {
                 let loadedProducts = try await HomeServices.getProducts(by: query)
                 data = loadedProducts
-//                context.insert(loadedProducts)
             } catch {
                 print("Error: \(error.localizedDescription)")
                 contentState.errorModel = .init(errorMessage: error.localizedDescription)
             }
         }
+    }
+    
+    func saveSearchQuery() {
+        context.insert(SearchModel.init(searchedQueries: query))
     }
 }
 

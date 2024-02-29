@@ -9,9 +9,9 @@ import SwiftData
 
 @Model
 class SearchModel {
-    var searchedQueries: [String]
+    var searchedQueries: String
     
-    init(searchedQueries: [String]) {
+    init(searchedQueries: String) {
         self.searchedQueries = searchedQueries
     }
 }
