@@ -68,6 +68,9 @@ struct ProductDetailsView: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            router.hideTabBar()
+        }
     }
 }
 

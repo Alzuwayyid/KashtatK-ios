@@ -30,7 +30,10 @@ struct ProductsListView: View {
                     title: "Products",
                     titleType: .subScreen,
                     onBack: {
-                        router.dismiss()
+                        withAnimation {
+                            router.dismiss()
+                            router.showTabBar()
+                        }
                     }
                 )
                 ScrollView {
@@ -49,6 +52,7 @@ struct ProductsListView: View {
             
         }
         .onAppear {
+            router.hideTabBar()
             Task {
                 await getProducts()
             }

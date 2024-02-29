@@ -11,7 +11,17 @@ import Neumorphic
 struct TabViews: View {
     // State variable to track the currently selected tab.
     @State private var selectedTab: Tab = .home
-    @StateObject var homeRouter = HomeRouter(isPresented: .constant(.home))
+    @State private var isTabBarVisible: Bool = true
+    @StateObject var homeRouter: HomeRouter
+
+    init() {
+        // Initialize the HomeRouter here with _isTabBarVisible directly
+        let isPresented = Binding.constant(Tab.home)
+        let isTabBarVisibleBinding = Binding.constant(true)
+        // Initialize _homeRouter as a StateObject
+        _homeRouter = StateObject(wrappedValue: HomeRouter(isPresented: .constant(.home)))
+    }
+    
     var body: some View {
         // BaseView is a custom container that could provide common styling or navigation.
         BaseView {
@@ -25,8 +35,13 @@ struct TabViews: View {
                     SettingsView()
                 }
                 // The custom tab bar view at the bottom of the screen.
-                CustomTabBar(selectedTab: $selectedTab)
+                if homeRouter.isTabBarVisible {
+                    CustomTabBar(selectedTab: $selectedTab)
+                }
             }
+        }
+        .onAppear {
+            homeRouter.showTabBar()
         }
     }
 }

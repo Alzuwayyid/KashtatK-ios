@@ -25,6 +25,7 @@ class Router: ObservableObject {
     
     // MARK: Properities
     @Published private(set) var state: State
+    @Published var isTabBarVisible: Bool = true
     /// Initializes the router with a specific presentation binding.
     /// - Parameter isPresented: A binding to a `ViewSpec?` that allows for dynamic presentation.
     init(isPresented: Binding<ViewSpec?>) {
@@ -112,6 +113,14 @@ extension Router {
     
     var isPresented: Binding<ViewSpec?> {
         state.isPresented
+    }
+    
+    func hideTabBar() {
+        isTabBarVisible = false
+    }
+
+    func showTabBar() {
+        isTabBarVisible = true
     }
 }
 
