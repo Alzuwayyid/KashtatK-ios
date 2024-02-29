@@ -28,7 +28,7 @@ struct ProductDetailsView: View {
                 )
                 ScrollView {
                     VStack(alignment: .leading) {
-                        GradientBackgroundView(imageUrl: URL(string: product?.images ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Mobily_Logo.svg/800px-Mobily_Logo.svg.png")!)
+                        GradientBackgroundView(imageUrl: URL(string: product?.images ?? "")!)
                             .frame(maxWidth: .infinity)
                             .frame(height: 200)
                             .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -71,13 +71,5 @@ struct ProductDetailsView: View {
         .onAppear {
             router.hideTabBar()
         }
-    }
-}
-
-// SwiftUI Preview
-struct ProductsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProductDetailsView()
-            .previewLayout(.sizeThatFits)
     }
 }

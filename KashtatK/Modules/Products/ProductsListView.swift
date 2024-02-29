@@ -11,12 +11,13 @@ import SwiftData
 
 struct ProductsListView: View {
     // MARK: Properities
+    var productId: String
     @Environment(\.modelContext) var context
     @EnvironmentObject var router: HomeRouter
     @Query var data: [Products]
     @State var contentState: ContentStates = ContentStates()
     var neumorphicNavigationBarItems: [NavBarItem] = []
-    private var columns: [GridItem] = [
+    var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
@@ -66,12 +67,27 @@ extension ProductsListView {
     func getProducts() async {
         Task {
             do {
-                let loadedProducts = try await HomeServices.getProducts()
-                context.insert(loadedProducts)
+                if productId.isEmpty {
+                    let loadedProducts = try await HomeServices.getProducts()
+                    deleteData()
+                    context.insert(loadedProducts)
+                } else {
+                    let loadedProducts = try await HomeServices.getProducts(with: productId)
+                    deleteData()
+                    context.insert(loadedProducts)
+                }
             } catch {
                 print("Error: \(error.localizedDescription)")
                 contentState.errorModel = .init(errorMessage: error.localizedDescription)
             }
+        }
+    }
+    
+    func deleteData() {
+        do {
+            try context.delete(model: Products.self)
+        } catch {
+            print("Failed to delete all schools.")
         }
     }
 }

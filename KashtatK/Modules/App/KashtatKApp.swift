@@ -15,6 +15,6 @@ struct KashtatKApp: App {
         WindowGroup {
             TabViews()
         }
-        .modelContainer(for: [Products.self])
+        .modelContainer(for: [Products.self, Hit.self, HighlightResult.self, Category.self])
     }
 }

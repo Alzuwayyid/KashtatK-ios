@@ -136,6 +136,28 @@ struct SearchBarView: View {
     }
 }
 
+struct BaseSearchView: View {
+    // MARK: Properities
+    @Binding var text: String
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
+                TextField("Search ...", text: $text)
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(
+                RoundedRectangle(cornerRadius: 30).fill(Color.Neumorphic.main)
+                    .softInnerShadow(RoundedRectangle(cornerRadius: 30), darkShadow: .Neumorphic.darkShadow, lightShadow: .Neumorphic.lightShadow, spread: 0.05, radius: 2)
+            )
+        }
+    }
+}
+
 struct BaseAsyncImage: View {
     // MARK: Properities
     let url: String

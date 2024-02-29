@@ -9,8 +9,8 @@ import SwiftUI
 /// `HomeRouter` is a subclass of `Router` designed to handle navigation specifically for the "Home" section of the application.
 /// It extends the basic navigation functionalities provided by `Router` with additional capabilities tailored to the home context.
 class HomeRouter: Router {
-    func pushProductsList() {
-        navigateTo(.productsList)
+    func pushProductsList(with id: String = "") {
+        navigateTo(.productsList(id: id))
     }
     
     func pushSearchScreen() {
@@ -37,8 +37,8 @@ private extension HomeRouter {
     @ViewBuilder
     func buildView(spec: ViewSpec, route: Route) -> some View {
         switch spec {
-            case .productsList:
-                ProductsListView()
+            case .productsList(id: let id):
+                ProductsListView(productId: id)
             case .search:
                 SearchView()
             case .productDetails(with: let hit):

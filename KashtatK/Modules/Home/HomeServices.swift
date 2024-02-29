@@ -17,4 +17,14 @@ final class HomeServices {
         let endpoint = Endpoints.getProducts
         return try await APITask.shared.asyncRequest(endpoint: endpoint, responseModel: Products.self)
     }
+    
+    static func getProducts(with id: String) async throws -> Products {
+        let endpoint = Endpoints.getProductsBy(id: id)
+        return try await APITask.shared.asyncRequest(endpoint: endpoint, responseModel: Products.self)
+    }
+    
+    static func getProducts(by id: String) async throws -> ProductObjectModel {
+        let endpoint = Endpoints.getProductsBy(id: id)
+        return try await APITask.shared.asyncRequest(endpoint: endpoint, responseModel: ProductObjectModel.self)
+    }
 }

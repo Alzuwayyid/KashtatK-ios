@@ -74,16 +74,17 @@ struct ProductExhaustive: Codable {
 // MARK: - Hit
 @Model
 class Hit: Codable {
-    let productName: String
-    let category: String
-    let trend: String
-    let price: Double
-    let rating: Double
-    let stock: Int
-    let desc: String
-    let images: String
-    let objectID: String
-    let highlightResult: HighlightResult
+    let productName: String?
+    let category: String?
+    let trend: String?
+    let price: Double?
+    let rating: Double?
+    let stock: Int?
+    let desc: String?
+    let images: String?
+    let objectID: String?
+//    let highlightResult: HighlightResult?
+    @Relationship(deleteRule: .cascade) var highlightResult: HighlightResult?
     
     enum CodingKeys: String, CodingKey {
         case productName = "Product Name"
@@ -130,21 +131,59 @@ class Hit: Codable {
 }
 
 // MARK: - HighlightResult
-struct HighlightResult: Codable {
-    let productName, category, desc: Category?
+@Model
+class HighlightResult: Codable {
+    @Relationship(deleteRule: .cascade) var productName: Category?
+    @Relationship(deleteRule: .cascade) var category: Category?
 
+    // Custom initializer to decode
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        productName = try container.decode(Category.self, forKey: .productName)
+        category = try container.decode(Category.self, forKey: .category)
+    }
+
+    // Encode function
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(productName, forKey: .productName)
+        try container.encode(category, forKey: .category)
+    }
+    
     enum CodingKeys: String, CodingKey {
         case productName = "Product Name"
         case category = "Category"
-        case desc = "Description"
     }
 }
 
 // MARK: - Category
-struct Category: Codable {
+@Model
+class Category: Codable {
     let value: String
     let matchLevel: String
     let matchedWords: [String]
+    
+    // Custom initializer to decode
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        value = try container.decode(String.self, forKey: .value)
+        matchLevel = try container.decode(String.self, forKey: .matchLevel)
+        matchedWords = try container.decode([String].self, forKey: .matchedWords)
+    }
+
+    // Encode function
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(value, forKey: .value)
+        try container.encode(matchLevel, forKey: .matchLevel)
+        try container.encode(matchedWords, forKey: .matchedWords)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case value
+        case matchLevel
+        case matchedWords
+    }
 }
 
 // MARK: - RenderingContent
@@ -163,4 +202,47 @@ struct ProcessingTimingsMS: Codable {
 // MARK: - Request
 struct ProductRequest: Codable {
     let roundTrip: Int
+}
+
+// MARK: - Products
+struct ProductObjectModel: Codable {
+    let hits: [HitObjectModel]
+    let nbHits, page, nbPages, hitsPerPage: Int
+    let exhaustiveNbHits, exhaustiveTypo: Bool
+    let exhaustive: Exhaustive
+    let query, params: String
+    let renderingContent: RenderingContent
+    let processingTimeMS: Int
+    let processingTimingsMS: ProcessingTimingsMS
+    let serverTimeMS: Int
+}
+
+// MARK: - Exhaustive
+struct Exhaustive: Codable {
+    let nbHits, typo: Bool
+}
+
+// MARK: - Hit
+struct HitObjectModel: Codable {  
+    var id: String { objectID }
+    let productName, category, trend: String
+    let price, rating: Double
+    let stock: Int
+    let description: String
+    let images: String
+    let popular, objectID: String
+    let highlightResult: HighlightResult
+
+    enum CodingKeys: String, CodingKey {
+        case productName = "Product Name"
+        case category = "Category"
+        case trend = "Trend"
+        case price = "Price"
+        case rating = "Rating"
+        case stock = "Stock"
+        case description = "Description"
+        case images = "Images"
+        case popular, objectID
+        case highlightResult = "_highlightResult"
+    }
 }
