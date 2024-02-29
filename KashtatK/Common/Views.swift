@@ -215,8 +215,6 @@ extension ImageColorViewModel {
     }
 }
 
-import SwiftUI
-
 struct GradientBackgroundView: View {
     let imageUrl: URL
     @StateObject private var viewModel = ImageColorViewModel()
@@ -285,6 +283,7 @@ struct NeumorphicCircleView: View {
                     .frame(width: 20, height: 20)
                     .overlay(
                         Text("\(counter)")
+                            .font(.system(size: 11))
                             .foregroundColor(.white)
                     )
                     .offset(x: 25, y: -25) // Adjust position to top-right
