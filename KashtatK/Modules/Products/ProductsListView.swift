@@ -11,19 +11,19 @@ import SwiftData
 
 struct ProductsListView: View {
     // MARK: Properities
-    var productId: String
+    @State var productId: String
     @Environment(\.modelContext) var context
     @EnvironmentObject var router: HomeRouter
     @Query var data: [Products]
     @Query var filterKeywords: [FilterModel]
     @State var contentState: ContentStates = ContentStates()
+    @State private var selectedChipId: String?
     var neumorphicNavigationBarItems: [NavBarItem] = []
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
     let layout = [GridItem(.flexible())]
-    @State private var selectedChipId: String?
     
     var body: some View {
         BaseView {
@@ -51,6 +51,10 @@ struct ProductsListView: View {
                                         selectedChipId = nil  // Deselect if already selected
                                     } else {
                                         selectedChipId = id  // Select the chip
+                                    }
+                                    productId = id
+                                    Task {
+                                        await getProducts()
                                     }
                                 }
                             }
