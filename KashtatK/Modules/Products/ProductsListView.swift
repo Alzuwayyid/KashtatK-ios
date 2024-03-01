@@ -15,12 +15,15 @@ struct ProductsListView: View {
     @Environment(\.modelContext) var context
     @EnvironmentObject var router: HomeRouter
     @Query var data: [Products]
+    @Query var filterKeywords: [FilterModel]
     @State var contentState: ContentStates = ContentStates()
     var neumorphicNavigationBarItems: [NavBarItem] = []
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
+    let layout = [GridItem(.flexible())]
+    @State private var selectedChipId: String?
     
     var body: some View {
         BaseView {
@@ -37,6 +40,27 @@ struct ProductsListView: View {
                         }
                     }
                 )
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15).fill(Color.Neumorphic.main).frame(height: 55).frame(maxWidth: .infinity)
+                        .softInnerShadow(RoundedRectangle(cornerRadius: 15))
+                    ScrollView(.horizontal) {
+                        LazyHGrid(rows: layout) {
+                            ForEach(filterKeywords.first?.filterKeyWords ?? [], id: \.self) { keyword in
+                                FilterChipView(data: keyword, isSelected: selectedChipId == keyword.id) { id in
+                                    if selectedChipId == id {
+                                        selectedChipId = nil  // Deselect if already selected
+                                    } else {
+                                        selectedChipId = id  // Select the chip
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 5)
+                        .frame(height: 55)
+                    }
+                    .scrollIndicators(.hidden)
+                }
+                .padding(.horizontal, 16)
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(data.first?.hits ?? []) { product in
@@ -91,3 +115,5 @@ extension ProductsListView {
         }
     }
 }
+
+

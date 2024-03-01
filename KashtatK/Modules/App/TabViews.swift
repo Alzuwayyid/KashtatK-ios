@@ -13,7 +13,8 @@ struct TabViews: View {
     @State private var selectedTab: Tab = .home
     @State private var isTabBarVisible: Bool = true
     @StateObject var homeRouter: HomeRouter
-
+    @Environment(\.modelContext) var context
+    
     init() {
         // Initialize the HomeRouter here with _isTabBarVisible directly
         let isPresented = Binding.constant(Tab.home)
@@ -42,10 +43,23 @@ struct TabViews: View {
         }
         .onAppear {
             homeRouter.showTabBar()
+            setupModels()
         }
     }
 }
 
+extension TabViews {
+    private func setupModels() {
+        let keyWords = [SearchKeywords(id: "", title: "All"), SearchKeywords(id: "Electronics", title: "Electronics"), SearchKeywords(id: "Lighting", title: "Lighting"), SearchKeywords(id: "Accessories", title: "Accessories"), SearchKeywords(id: "Cooking", title: "Cooking"), SearchKeywords(id: "Navigation", title: "Navigation"), SearchKeywords(id: "Hydration", title: "Hydration"), SearchKeywords(id: "Safety", title: "Safety")]
+        let filters = FilterModel(popularSearches: [], trends: [], filterKeyWords: keyWords)
+        context.insert(filters)
+        do {
+            try context.save()
+        } catch {
+            print("Could not setup models")
+        }
+    }
+}
 // Enumeration to define the tabs available in the application.
 enum Tab {
     case home, settings
