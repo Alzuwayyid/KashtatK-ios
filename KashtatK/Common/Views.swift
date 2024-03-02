@@ -9,6 +9,7 @@ import SwiftUI
 import Neumorphic
 import CoreGraphics
 import CoreImage
+import SwiftData
 
 extension View {
     /// Converts the invoking view to `AnyView` for type erasure.
@@ -376,3 +377,51 @@ extension View {
     }
     
 }
+
+struct FilterKeywordsScrollView: View {
+    enum KeywordsType {
+        case filterKeyWords
+        case popularSearches
+    }
+    // MARK: Properities
+    @State var selectedChipId: String?
+    var filterKeywords: [FilterModel]
+    var keywordsType: KeywordsType
+    var cornerRadius: CGFloat = 20
+    var horizontalPadding: CGFloat = 5
+    let onChipSelected: (String?) -> Void
+    var layout: [GridItem] = [GridItem(.fixed(55))]
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.Neumorphic.main).frame(height: 55).frame(maxWidth: .infinity)
+                .softInnerShadow(RoundedRectangle(cornerRadius: 15))
+            ScrollView(.horizontal) {
+                LazyHGrid(rows: layout) {
+                    ForEach(keywordsArray(), id: \.id) { keyword in
+                        FilterChipView(data: keyword, isSelected: selectedChipId == keyword.id, cornerRadius: cornerRadius) { id in
+                            withAnimation {
+                                selectedChipId = (selectedChipId == id) ? nil : id
+                            }
+                            onChipSelected(id)
+                        }
+                    }
+                }
+                .padding(.horizontal, horizontalPadding)
+                .frame(height: 55)
+            }
+            .scrollIndicators(.hidden)
+        }
+    }
+    
+    // Helper function to determine which keywords array to use
+    private func keywordsArray() -> [SearchKeywords] {
+        switch keywordsType {
+        case .filterKeyWords:
+            return filterKeywords.flatMap { $0.filterKeyWords }
+        case .popularSearches:
+            return filterKeywords.flatMap { $0.popularSearches }
+        }
+    }
+}
+

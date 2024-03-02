@@ -9,11 +9,11 @@ import SwiftData
 
 @Model
 class FilterModel {
-    var popularSearches: [String]
+    var popularSearches: [SearchKeywords]
     var trends: [String]
     var filterKeyWords: [SearchKeywords]
     
-    init(popularSearches: [String], trends: [String], filterKeyWords: [SearchKeywords]) {
+    init(popularSearches: [SearchKeywords], trends: [String], filterKeyWords: [SearchKeywords]) {
         self.popularSearches = popularSearches
         self.trends = trends
         self.filterKeyWords = filterKeyWords

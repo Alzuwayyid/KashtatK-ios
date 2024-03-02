@@ -24,7 +24,6 @@ struct ProductsListView: View {
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
-    let layout = [GridItem(.flexible())]
     
     var body: some View {
         BaseView {
@@ -43,30 +42,17 @@ struct ProductsListView: View {
                         }
                     }
                 )
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15).fill(Color.Neumorphic.main).frame(height: 55).frame(maxWidth: .infinity)
-                        .softInnerShadow(RoundedRectangle(cornerRadius: 15))
-                    ScrollView(.horizontal) {
-                        LazyHGrid(rows: layout) {
-                            ForEach(filterKeywords.first?.filterKeyWords ?? [], id: \.self) { keyword in
-                                FilterChipView(data: keyword, isSelected: selectedChipId == keyword.id) { id in
-                                    if selectedChipId == id {
-                                        selectedChipId = nil  // Deselect if already selected
-                                    } else {
-                                        selectedChipId = id  // Select the chip
-                                    }
-                                    productId = id
-                                    Task {
-                                        await getProducts()
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.horizontal, 5)
-                        .frame(height: 55)
+                FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .filterKeyWords, onChipSelected: { id in
+                    if selectedChipId == id {
+                        selectedChipId = nil
+                    } else {
+                        selectedChipId = id
                     }
-                    .scrollIndicators(.hidden)
-                }
+                    productId = id ?? ""
+                    Task {
+                        await getProducts()
+                    }
+                })
                 .padding(.horizontal, 16)
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {

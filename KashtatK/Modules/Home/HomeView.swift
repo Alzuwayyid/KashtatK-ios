@@ -16,9 +16,11 @@ struct HomeView: View {
     @Environment(\.modelContext) var context
     @Query var data: [Products]
     @Query var cartData: [CartModel]
+    @Query var filterKeywords: [FilterModel]
     @State private var showBackButton = true
     @State var contentState: ContentStates = ContentStates()
     @State var text: String = ""
+    
     var body: some View {
         BaseNavigationStack(router: homeRouter, title: "") {
             VStack {
@@ -38,6 +40,13 @@ struct HomeView: View {
                     VStack(spacing: 40) {
                         SearchBarView {
                             homeRouter.pushSearchScreen()
+                        }
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Popular Searches")
+                                .foregroundStyle(Color.black.opacity(0.5))
+                            FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .popularSearches, cornerRadius: 6, horizontalPadding: 12, onChipSelected: { id in
+                                homeRouter.pushProductsList(with: id ?? "")
+                            })
                         }
                         if cartData.isEmpty {
                             CartStateComponentView()

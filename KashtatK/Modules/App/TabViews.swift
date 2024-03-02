@@ -50,13 +50,18 @@ struct TabViews: View {
 
 extension TabViews {
     private func setupModels() {
+        deleteFilterData()
         let keyWords = [SearchKeywords(id: "", title: "All"), SearchKeywords(id: "Electronics", title: "Electronics"), SearchKeywords(id: "Lighting", title: "Lighting"), SearchKeywords(id: "Accessories", title: "Accessories"), SearchKeywords(id: "Cooking", title: "Cooking"), SearchKeywords(id: "Navigation", title: "Navigation"), SearchKeywords(id: "Hydration", title: "Hydration"), SearchKeywords(id: "Safety", title: "Safety")]
-        let filters = FilterModel(popularSearches: [], trends: [], filterKeyWords: keyWords)
+        let popularKeyWords = [SearchKeywords(id: "map and compass", title: "Map and Compass"), SearchKeywords(id: "tent", title: "Tent"), SearchKeywords(id: "sleeping bag", title: "Sleeping Bag"), SearchKeywords(id: "campfire grill", title: "Campfire Grill"), SearchKeywords(id: "portable stove", title: "Portable Stove"), SearchKeywords(id: "camping chair", title: "Camping Chair"), SearchKeywords(id: "LED lantern", title: "LED lantern"), SearchKeywords(id: "water bottle", title: "Water bottle"), SearchKeywords(id: "first aid kit", title: "First Aid kit")]
+        let filters = FilterModel(popularSearches: popularKeyWords, trends: [], filterKeyWords: keyWords)
         context.insert(filters)
+    }
+    
+    func deleteFilterData() {
         do {
-            try context.save()
+            try context.delete(model: FilterModel.self)
         } catch {
-            print("Could not setup models")
+            print("Failed to delete all.")
         }
     }
 }

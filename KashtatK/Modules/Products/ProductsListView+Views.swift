@@ -52,6 +52,7 @@ struct ProductItem: View {
 struct FilterChipView: View {
     let data: SearchKeywords
     var isSelected: Bool
+    var cornerRadius: CGFloat = 20
     let onTap: (_ id: String) -> ()
 
     var body: some View {
@@ -59,7 +60,7 @@ struct FilterChipView: View {
             .foregroundStyle(Color.black.opacity(0.5))
             .padding(10)
             .background(isSelected ? Color.gray : Color.Neumorphic.main)
-            .cornerRadius(20)
+            .cornerRadius(cornerRadius)
             .shadow(color: isSelected ? .gray : .black.opacity(0.5), radius: 0.5, x: 0.5, y: 0.5)
             .shadow(color: isSelected ? .white : .clear, radius: 0.5, x: -0.5, y: -0.5)
             .onTapGesture {
