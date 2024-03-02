@@ -19,32 +19,36 @@ struct HomeView: View {
     @State private var showBackButton = true
     @State var contentState: ContentStates = ContentStates()
     @State var text: String = ""
-    var neumorphicNavigationBarItems = [
-        NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue) {
-            print("Home tapped")
-            //        homeRouter.pushProductsList()
-        },
-        NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green) {
-            
-            //        homeRouter.pushProductsList()
-        } ]
     var body: some View {
         BaseNavigationStack(router: homeRouter, title: "") {
             VStack {
                 NeumorphicNavigationBar(
-                    items: neumorphicNavigationBarItems,
+                    items: [
+                        NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue) {
+                            print("Home tapped")
+                            homeRouter.pushProductsList()
+                        },
+                        NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green) {
+                            
+                            homeRouter.pushProductsList()
+                        } ],
                     showBackButton: false,
                     title: "Home",
                     titleType: .main
                 )
                 ZStack(alignment: .top) {
                     Color.Neumorphic.main.ignoresSafeArea()
-                    SearchBarView {
-                        homeRouter.pushSearchScreen()
+                    VStack(spacing: 40) {
+                        SearchBarView {
+                            homeRouter.pushSearchScreen()
+                        }
+                        if cartData.isEmpty {
+                            CartStateComponentView()
+                                .onTapGesture {
+                                    homeRouter.pushProductsList()
+                                }
+                        }
                     }
-                    Text("CONTENT")
-                        .padding(.top, 300)
-                    Spacer()
                 }
                 .padding(.horizontal, 16)
             }

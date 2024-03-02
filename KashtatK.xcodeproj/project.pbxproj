@@ -36,6 +36,7 @@
 		102C628C2B8FD2780064A17B /* ProductsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C628B2B8FD2780064A17B /* ProductsListView.swift */; };
 		102C628F2B90A7EB0064A17B /* ProductsListView+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C628E2B90A7EB0064A17B /* ProductsListView+Views.swift */; };
 		102C62912B90B5D50064A17B /* ProductDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62902B90B5D50064A17B /* ProductDetailsView.swift */; };
+		102C62932B9333F20064A17B /* HomeView+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62922B9333F20064A17B /* HomeView+Views.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		102C628B2B8FD2780064A17B /* ProductsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListView.swift; sourceTree = "<group>"; };
 		102C628E2B90A7EB0064A17B /* ProductsListView+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductsListView+Views.swift"; sourceTree = "<group>"; };
 		102C62902B90B5D50064A17B /* ProductDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsView.swift; sourceTree = "<group>"; };
+		102C62922B9333F20064A17B /* HomeView+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+Views.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			children = (
 				101012462B8CB77200C8B0B9 /* HomeView.swift */,
 				102C627F2B8F79280064A17B /* HomeServices.swift */,
+				102C62922B9333F20064A17B /* HomeView+Views.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				102C62832B8F7E250064A17B /* TabViews.swift in Sources */,
 				102C62892B8FC5470064A17B /* SearchView.swift in Sources */,
 				102C628F2B90A7EB0064A17B /* ProductsListView+Views.swift in Sources */,
+				102C62932B9333F20064A17B /* HomeView+Views.swift in Sources */,
 				101C50962B8D14E600118257 /* Utilities.swift in Sources */,
 				101C50A52B8E074200118257 /* API+Task.swift in Sources */,
 				101C50A92B8E19BB00118257 /* EndPoint+Config.swift in Sources */,
