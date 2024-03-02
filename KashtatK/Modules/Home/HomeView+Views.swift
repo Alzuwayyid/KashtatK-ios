@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Neumorphic
-
+// MARK: Cart State Component
 struct CartStateComponentView: View {
     var body: some View {
         ZStack {
@@ -24,7 +24,7 @@ struct CartStateComponentView: View {
         }
     }
 }
-
+// MARK: Long component View
 struct LongComponentView: View {
     // MARK: Properties
     var items: [FilterModel]
@@ -49,8 +49,7 @@ struct LongComponentView: View {
         }
     }
 }
-
-
+// MARK: Trend Product
 struct TrendingProductView: View {
     var imageUrl: String
     var text: String

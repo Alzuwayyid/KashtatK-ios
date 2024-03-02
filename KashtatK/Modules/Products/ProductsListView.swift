@@ -15,7 +15,6 @@ struct ProductsListView: View {
     }
     
     // MARK: Properities
-    @State var productId: String
     @Environment(\.modelContext) var context
     @EnvironmentObject var router: HomeRouter
     @Query var data: [Products]
@@ -23,13 +22,9 @@ struct ProductsListView: View {
     @Query var cartData: [CartModel]
     @State var contentState: ContentStates = ContentStates()
     @State private var selectedChipId: String?
-    var type: ProductType = .all
-    var neumorphicNavigationBarItems: [NavBarItem] = []
-    var columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 20),
-        GridItem(.flexible(), spacing: 20)
-    ]
     @State private var showSuccessBanner = false
+    @State var productId: String
+    var type: ProductType = .all
     
     var body: some View {
         BaseView {
@@ -63,15 +58,14 @@ struct ProductsListView: View {
                     .padding(.horizontal, 16)
                 }
                 ScrollView {
-                    LazyVGrid(columns: columns, spacing: 20) {
+                    LazyVGrid(columns: ThemeManager.shared.GridItemFlexcolumns, spacing: 20) {
                         ForEach(data.first?.hits ?? []) { product in
                             ProductItem(product: product) {
                                 addToCart(with: product)
                                 showSuccessBanner = true
+                            } .onTapGesture {
+                                router.pushProductDetails(with: product)
                             }
-                                .onTapGesture {
-                                    router.pushProductDetails(with: product)
-                                }
                         }
                     }
                     .padding()

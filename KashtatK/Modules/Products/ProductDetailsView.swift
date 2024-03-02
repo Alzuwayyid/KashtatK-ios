@@ -13,14 +13,13 @@ struct ProductDetailsView: View {
     @EnvironmentObject var router: HomeRouter
     @Environment(\.modelContext) var context
     @State private var showSuccessBanner = false
-    var neumorphicNavigationBarItems: [NavBarItem] = []
     var product: Hit?
     
     var body: some View {
         BaseView {
             VStack {
                 NeumorphicNavigationBar(
-                    items: neumorphicNavigationBarItems,
+                    items: [],
                     showBackButton: true,
                     title: product?.productName ?? "Product Name",
                     titleType: .subScreen,
@@ -66,7 +65,7 @@ struct ProductDetailsView: View {
                 }
                 .softButtonStyle(RoundedRectangle(cornerRadius: 15),
                                  mainColor: Color.orange, textColor: Color.white)
-                    .padding(.horizontal, 32)
+                .padding(.horizontal, 32)
                 Spacer()
             }
         }

@@ -60,7 +60,7 @@ struct NavBarItem {
         self.action = action
     }
 }
-
+// MARK: Custom Navigation Bar
 struct NeumorphicNavigationBar: View {
     enum TitleType {
         case main, subScreen
@@ -122,8 +122,6 @@ struct NeumorphicNavigationBar: View {
     }
 }
 
-
-
 extension View {
     func neumorphicStyle() -> some View {
         self
@@ -135,55 +133,7 @@ extension View {
             .shadow(color: .white.opacity(0.7), radius: 2, x: -2, y: -2)
     }
 }
-
-struct SearchBarView: View {
-    // MARK: Properities
-    var action: () -> ()
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
-                Text("Search ...").foregroundColor(.Neumorphic.secondary)
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .background(
-                RoundedRectangle(cornerRadius: 30).fill(Color.Neumorphic.main)
-                    .softInnerShadow(RoundedRectangle(cornerRadius: 30), darkShadow: .Neumorphic.darkShadow, lightShadow: .Neumorphic.lightShadow, spread: 0.05, radius: 2)
-            ).onTapGesture {
-                action()
-            }
-        }
-    }
-}
-            
-struct BaseSearchView: View {
-    // MARK: Properities
-    @Binding var text: String
-    @FocusState var isTextFieldFocused: Bool
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
-                TextField("Search ...", text: $text)
-                    .focused($isTextFieldFocused)
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .background(
-                RoundedRectangle(cornerRadius: 30).fill(Color.Neumorphic.main)
-                    .softInnerShadow(RoundedRectangle(cornerRadius: 30), darkShadow: .Neumorphic.darkShadow, lightShadow: .Neumorphic.lightShadow, spread: 0.05, radius: 2)
-            )
-        }
-    }
-}
-
+// MARK: Base Async Image
 struct BaseAsyncImage: View {
     // MARK: Properities
     let url: String
@@ -206,13 +156,17 @@ struct BaseAsyncImage: View {
         }
     }
 }
-
+/// `ImageColorViewModel` is responsible for loading an image from a URL and analyzing its dominant colors.
 class ImageColorViewModel: ObservableObject {
     @Published var dominantColor1: Color = .clear
     @Published var dominantColor2: Color = .clear
 }
 
 extension ImageColorViewModel {
+    /// Loads an image from the specified URL and analyzes its dominant colors.
+    /// - Parameter url: The URL from which to load the image.
+    /// This function first downloads the image data from the given URL, resizes the image for efficient color analysis,
+    /// then extracts the dominant colors and updates the ViewModel's published properties.
     func loadImageAndAnalyzeColors(from url: URL) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, let uiImage = UIImage(data: data) else {
@@ -232,7 +186,11 @@ extension ImageColorViewModel {
             }
         }.resume()
     }
-    
+    /// Analyzes an image to determine its dominant colors.
+    /// - Parameter image: The UIImage to analyze.
+    /// - Returns: A tuple containing two `Color` values representing the dominant colors in the image.
+    /// This method uses CoreImage's CIAreaAverage filter to find the average color of the image, which is considered the dominant color.
+    /// The second color is a variant (lighter or darker) of the first, based on its brightness.
     private func analyzeDominantColors(in image: UIImage) -> (Color, Color) {
         guard let ciImage = CIImage(image: image) else { return (.clear, .clear) }
         
@@ -262,7 +220,12 @@ extension ImageColorViewModel {
         return (dominantColor1, dominantColor2)
     }
 }
-
+// MARK: Gradient Background View
+/// `GradientBackgroundView` displays a gradient background based on the dominant colors of an image loaded from a URL.
+/// The view uses an overlay to present the image itself on top of the gradient background.
+/// - Usage:
+/// Add `GradientBackgroundView` to your SwiftUI view hierarchy and pass in the image URL.
+/// The view will display a loading indicator until the image is fetched and processed, then display the image with the gradient background.
 struct GradientBackgroundView: View {
     let imageUrl: URL
     @StateObject private var viewModel = ImageColorViewModel()
@@ -294,8 +257,6 @@ struct GradientBackgroundView: View {
             }
     }
 }
-
-
 
 struct NeumorphicCircleView: View {
     enum Mode {
@@ -423,106 +384,3 @@ struct FilterKeywordsScrollView: View {
         }
     }
 }
-
-struct ThreeDotsLoadingView: View {
-    let animationDuration: Double = 0.6
-    @State private var isAnimating: Bool = false
-
-    var body: some View {
-        HStack(spacing: 5) {
-            ForEach(0..<3, id: \.self) { index in
-                Circle()
-                    .frame(width: 8, height: 8)
-                    .scaleEffect(isAnimating ? 0.5 : 1)
-                    .opacity(isAnimating ? 0.5 : 1)
-                    .animation(Animation.easeInOut(duration: animationDuration)
-                                .repeatForever()
-                                .delay(Double(index) * animationDuration / 3), value: isAnimating)
-            }
-        }
-        .onAppear {
-            isAnimating = true
-        }
-    }
-}
-
-struct LoadingModifier: ViewModifier {
-    var isLoading: Bool
-
-    func body(content: Content) -> some View {
-        ZStack {
-            content
-                .disabled(isLoading)
-                .blur(radius: isLoading ? 3 : 0)
-
-            if isLoading {
-                ThreeDotsLoadingView()
-                    .transition(.opacity)
-            }
-        }
-    }
-}
-
-extension View {
-    func loading(isLoading: Bool) -> some View {
-        self.modifier(LoadingModifier(isLoading: isLoading))
-    }
-}
-
-enum ToastStatus {
-    case success, error
-}
-
-struct ToastBannerView: View {
-    let message: String
-    let status: ToastStatus
-
-    var body: some View {
-        Text(message)
-            .padding()
-            .frame(maxWidth: .infinity) // Ensures full width
-            .background(Color.Neumorphic.main.opacity(0.8))
-            .foregroundColor(.black)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(status == .success ? Color.green : Color.red, lineWidth: 1)
-            )
-            .cornerRadius(10)
-            .shadow(radius: 5)
-            .padding(.horizontal, 10) // Horizontal padding
-    }
-}
-
-struct ToastBannerModifier: ViewModifier {
-    let message: String
-    let status: ToastStatus
-    @Binding var show: Bool
-    
-    func body(content: Content) -> some View {
-        ZStack {
-            content
-            
-            GeometryReader { geometry in
-                if show {
-                    ToastBannerView(message: message, status: status)
-                        .frame(width: geometry.size.width)
-                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                                withAnimation {
-                                    show = false
-                                }
-                            }
-                        }
-                }
-            }
-        }
-    }
-}
-
-extension View {
-    func toastBanner(message: String, status: ToastStatus, show: Binding<Bool>) -> some View {
-        self.modifier(ToastBannerModifier(message: message, status: status, show: show))
-    }
-}
-

@@ -9,6 +9,7 @@ import SwiftUI
 import Neumorphic
 import SwiftData
 
+// MARK: Product Item
 struct ProductItem: View {
     // MARK: Properities
     var product: Hit?
@@ -48,13 +49,14 @@ struct ProductItem: View {
         }
     }
 }
-
+// MARK: Filter Chip View
 struct FilterChipView: View {
+    // MARK: Properties
     let data: SearchKeywords
     var isSelected: Bool
     var cornerRadius: CGFloat = 20
     let onTap: (_ id: String) -> ()
-
+    
     var body: some View {
         Text(data.title)
             .foregroundStyle(Color.black.opacity(0.5))

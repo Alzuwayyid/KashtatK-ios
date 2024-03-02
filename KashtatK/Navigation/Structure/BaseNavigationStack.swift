@@ -68,22 +68,15 @@ struct BaseNavigationStack<Content: View>: View {
     
     var body: some View {
         NavigationStack(path: router.navigationPath) {
-                content
+            content
                 .background(Color.Neumorphic.main)
-//            .navigationBarTitle(title)
-//            .navigationBarHidden(isHidden)
-//            .navigationBarTitleDisplayMode(.inline)
-//            .toolbarColorScheme(.dark, for: .navigationBar)
-//            .toolbarBackground(
-//                self.baseColor,
-//                for: .navigationBar)
-            .navigationBarItems(
-                leading: leftBarButton?(),
-                trailing: rightBarButton?()
-            )
-            .navigationDestination(for: ViewSpec.self) { spec in
-                router.view(spec: spec, route: .navigation)
-            }
+                .navigationBarItems(
+                    leading: leftBarButton?(),
+                    trailing: rightBarButton?()
+                )
+                .navigationDestination(for: ViewSpec.self) { spec in
+                    router.view(spec: spec, route: .navigation)
+                }
         }
         .sheet(item: router.presentingSheet) { spec in
             router.view(spec: spec, route: .sheet)

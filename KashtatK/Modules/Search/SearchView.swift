@@ -55,12 +55,12 @@ struct SearchView: View {
                         }
                         ForEach(hits, id: \.id) { product in
                             SearchItem(id: product.productName) { }
-                            .onTapGesture {
-                                if isTextFieldFouced {
-                                    saveSearchQuery()
+                                .onTapGesture {
+                                    if isTextFieldFouced {
+                                        saveSearchQuery()
+                                    }
+                                    router.pushProductsList(with: product.productName)
                                 }
-                                router.pushProductsList(with: product.productName)
-                            }
                         }
                         .padding(.horizontal, 32)
                     }
@@ -98,27 +98,5 @@ extension SearchView {
     
     func saveSearchQuery() {
         context.insert(SearchModel.init(searchedQueries: query))
-    }
-}
-
-struct SearchItem: View {
-    // MARK: Properities
-    var id: String
-    var leftImage = "magnifyingglass"
-    var rightImage = "arrow.up.right.square"
-    var action: () -> ()
-    
-    var body: some View {
-        HStack {
-            HStack {
-                Image(systemName: leftImage)
-                Text(id)
-            }
-            Spacer()
-            Image(systemName: rightImage)
-                .onTapGesture {
-                    action()
-            }
-        }
     }
 }
