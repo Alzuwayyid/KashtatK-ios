@@ -16,6 +16,7 @@ struct ProductsListView: View {
     @EnvironmentObject var router: HomeRouter
     @Query var data: [Products]
     @Query var filterKeywords: [FilterModel]
+    @Query var cartData: [CartModel]
     @State var contentState: ContentStates = ContentStates()
     @State private var selectedChipId: String?
     var neumorphicNavigationBarItems: [NavBarItem] = []
@@ -29,7 +30,9 @@ struct ProductsListView: View {
         BaseView {
             VStack {
                 NeumorphicNavigationBar(
-                    items: neumorphicNavigationBarItems,
+                    items: [NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue, counter: cartData.count) {
+                        print("Home tapped")
+                    }],
                     showBackButton: true,
                     title: "Products",
                     titleType: .subScreen,

@@ -24,10 +24,7 @@ struct HomeView: View {
             VStack {
                 NeumorphicNavigationBar(
                     items: [
-                        NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue, counter: cartData.count) {
-                            print("Home tapped")
-                            homeRouter.pushProductsList()
-                        },
+                        NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue, counter: cartData.count) { },
                         NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green, counter: nil) {
                             
                             homeRouter.pushProductsList()

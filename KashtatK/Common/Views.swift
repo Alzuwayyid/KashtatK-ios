@@ -44,6 +44,13 @@ struct BaseView<Content: View>: View {
 }
 
 struct NavBarItem {
+    let id: UUID = UUID()
+    let icon: Image
+    let mainColor: Color
+    let secondaryColor: Color
+    let counter: Int?
+    let action: () -> Void
+    
     init(icon: Image, mainColor: Color, secondaryColor: Color, counter: Int? = nil, action: @escaping () -> Void) {
         self.icon = icon
         self.mainColor = mainColor
@@ -51,13 +58,6 @@ struct NavBarItem {
         self.counter = counter
         self.action = action
     }
-    
-    let id: UUID = UUID()
-    let icon: Image
-    let mainColor: Color
-    let secondaryColor: Color
-    let counter: Int?
-    let action: () -> Void
 }
 
 struct NeumorphicNavigationBar: View {
@@ -109,7 +109,6 @@ struct NeumorphicNavigationBar: View {
                                     .background(Color.red)
                                     .clipShape(Circle())
                                     .offset(x: 20, y: -20)
-                                    .animation(.default, value: counter)
                             }
                         }
                     )
