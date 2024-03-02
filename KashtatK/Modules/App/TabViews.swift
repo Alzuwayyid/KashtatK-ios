@@ -75,13 +75,13 @@ extension TabViews {
         ]
 
         let trends = [
-            Trend(id: "Portable", title: "Portable", imageUrl: "https://shorturl.at/HLU17"),
-            Trend(id: "Eco-Friendly", title: "Eco-Friendly", imageUrl: "https://shorturl.at/cw178"),
-            Trend(id: "Family Camping", title: "Family Camping", imageUrl: "https://shorturl.at/dGL03"),
-            Trend(id: "Navigation", title: "Navigation", imageUrl: "https://shorturl.at/giCMV"),
-            Trend(id: "Essential", title: "Essential", imageUrl: "https://shorturl.at/DPWZ0"),
-            Trend(id: "Comfort", title: "Comfort", imageUrl: "https://m.media-amazon.com/images/I/51QTeGQjOuL._AC_SL1100_.jpg"),
-            Trend(id: "Hydration", title: "Hydration", imageUrl: "https://m.media-amazon.com/images/I/61Cfw1rApBL.jpg")
+            Trend(id: "Portable", title: "Portable", imageUrl: "https://i.ibb.co/SnfzKKd/portable.webp"),
+            Trend(id: "Eco-Friendly", title: "Eco-Friendly", imageUrl: "https://i.ibb.co/JQx0wS9/eco.webp"),
+            Trend(id: "Family Camping", title: "Family Camping", imageUrl: "https://i.ibb.co/RQwnSqh/fam.webp"),
+            Trend(id: "Navigation", title: "Navigation", imageUrl: "https://i.ibb.co/PZZ5PJ1/naivgation.webp"),
+            Trend(id: "Essential", title: "Essential", imageUrl: "https://i.ibb.co/Hx8zLk2/ess.webp"),
+            Trend(id: "Comfort", title: "Comfort", imageUrl: "https://i.ibb.co/ssfdtv9/comfy.webp"),
+            Trend(id: "Hydration", title: "Hydration", imageUrl: "https://i.ibb.co/vJd831t/hydration.webp")
         ]
         
         let filters = FilterModel(popularSearches: popularKeyWords, trends: trends, filterKeyWords: keyWords)
