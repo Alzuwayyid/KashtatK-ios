@@ -53,7 +53,15 @@ extension TabViews {
         deleteFilterData()
         let keyWords = [SearchKeywords(id: "", title: "All"), SearchKeywords(id: "Electronics", title: "Electronics"), SearchKeywords(id: "Lighting", title: "Lighting"), SearchKeywords(id: "Accessories", title: "Accessories"), SearchKeywords(id: "Cooking", title: "Cooking"), SearchKeywords(id: "Navigation", title: "Navigation"), SearchKeywords(id: "Hydration", title: "Hydration"), SearchKeywords(id: "Safety", title: "Safety")]
         let popularKeyWords = [SearchKeywords(id: "map and compass", title: "Map and Compass"), SearchKeywords(id: "tent", title: "Tent"), SearchKeywords(id: "sleeping bag", title: "Sleeping Bag"), SearchKeywords(id: "campfire grill", title: "Campfire Grill"), SearchKeywords(id: "portable stove", title: "Portable Stove"), SearchKeywords(id: "camping chair", title: "Camping Chair"), SearchKeywords(id: "LED lantern", title: "LED lantern"), SearchKeywords(id: "water bottle", title: "Water bottle"), SearchKeywords(id: "first aid kit", title: "First Aid kit")]
-        let filters = FilterModel(popularSearches: popularKeyWords, trends: [], filterKeyWords: keyWords)
+        let trends = [Trend(id: "Portable", title: "Portable", imageUrl: "https://shorturl.at/HLU17"),
+                      Trend(id: "Eco-Friendly", title: "Eco-Friendly", imageUrl: "https://shorturl.at/cw178"),
+                      Trend(id: "Family Camping", title: "Family Camping", imageUrl: "https://shorturl.at/dGL03"),
+                      Trend(id: "Navigation", title: "Navigation", imageUrl: "https://shorturl.at/giCMV"),
+                      Trend(id: "Essential", title: "Essential", imageUrl: "https://shorturl.at/DPWZ0"),
+                      Trend(id: "Comfort", title: "Comfort", imageUrl: "https://m.media-amazon.com/images/I/51QTeGQjOuL._AC_SL1100_.jpg"),
+                      Trend(id: "Hydration", title: "Hydration", imageUrl: "https://m.media-amazon.com/images/I/61Cfw1rApBL.jpg"),
+        ]
+        let filters = FilterModel(popularSearches: popularKeyWords, trends: trends, filterKeyWords: keyWords)
         context.insert(filters)
     }
     

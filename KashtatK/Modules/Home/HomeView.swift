@@ -28,7 +28,6 @@ struct HomeView: View {
                     items: [
                         NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue, counter: cartData.count) { },
                         NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green, counter: nil) {
-                            
                             homeRouter.pushProductsList()
                         } ],
                     showBackButton: false,
@@ -47,6 +46,13 @@ struct HomeView: View {
                             FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .popularSearches, cornerRadius: 6, horizontalPadding: 12, onChipSelected: { id in
                                 homeRouter.pushProductsList(with: id ?? "", type: .popular)
                             })
+                        }
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Trending")
+                                .foregroundStyle(Color.black.opacity(0.5))
+                            LongComponentView(items: filterKeywords) { id in
+                                homeRouter.pushProductsList(with: id ?? "", type: .trend)
+                            }
                         }
                         if cartData.isEmpty {
                             CartStateComponentView()

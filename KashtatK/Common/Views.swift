@@ -390,14 +390,13 @@ struct FilterKeywordsScrollView: View {
     var cornerRadius: CGFloat = 20
     var horizontalPadding: CGFloat = 5
     let onChipSelected: (String?) -> Void
-    var layout: [GridItem] = [GridItem(.fixed(55))]
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15).fill(Color.Neumorphic.main).frame(height: 55).frame(maxWidth: .infinity)
                 .softInnerShadow(RoundedRectangle(cornerRadius: 15))
             ScrollView(.horizontal) {
-                LazyHGrid(rows: layout) {
+                LazyHGrid(rows: ThemeManager.shared.gridFixed55) {
                     ForEach(keywordsArray(), id: \.id) { keyword in
                         FilterChipView(data: keyword, isSelected: selectedChipId == keyword.id, cornerRadius: cornerRadius) { id in
                             withAnimation {

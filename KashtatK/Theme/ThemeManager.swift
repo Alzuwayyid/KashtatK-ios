@@ -9,4 +9,5 @@ import SwiftUI
 
 class ThemeManager: ObservableObject {
     static let shared = ThemeManager()
+    var gridFixed55: [GridItem] = [GridItem(.fixed(55))]
 }

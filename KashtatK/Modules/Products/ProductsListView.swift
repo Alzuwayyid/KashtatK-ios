@@ -87,7 +87,7 @@ struct ProductsListView: View {
                     case .popular:
                         await getPopularProducts()
                     case .trend:
-                        await getProducts()
+                        await getTrendProducts()
                 }
             }
         }
@@ -120,6 +120,19 @@ extension ProductsListView {
         Task {
             do {
                 let loadedProducts = try await HomeServices.getPopularProducts(for: productId)
+                deleteData()
+                context.insert(loadedProducts)
+            } catch {
+                print("Error: \(error.localizedDescription)")
+                contentState.errorModel = .init(errorMessage: error.localizedDescription)
+            }
+        }
+    }
+    @MainActor
+    func getTrendProducts() async {
+        Task {
+            do {
+                let loadedProducts = try await HomeServices.getTrendProducts(for: productId)
                 deleteData()
                 context.insert(loadedProducts)
             } catch {
