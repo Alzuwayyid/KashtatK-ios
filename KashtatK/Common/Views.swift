@@ -424,3 +424,47 @@ struct FilterKeywordsScrollView: View {
     }
 }
 
+struct ThreeDotsLoadingView: View {
+    let animationDuration: Double = 0.6
+    @State private var isAnimating: Bool = false
+
+    var body: some View {
+        HStack(spacing: 5) {
+            ForEach(0..<3, id: \.self) { index in
+                Circle()
+                    .frame(width: 8, height: 8)
+                    .scaleEffect(isAnimating ? 0.5 : 1)
+                    .opacity(isAnimating ? 0.5 : 1)
+                    .animation(Animation.easeInOut(duration: animationDuration)
+                                .repeatForever()
+                                .delay(Double(index) * animationDuration / 3), value: isAnimating)
+            }
+        }
+        .onAppear {
+            isAnimating = true
+        }
+    }
+}
+
+struct LoadingModifier: ViewModifier {
+    var isLoading: Bool
+
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+                .disabled(isLoading)
+                .blur(radius: isLoading ? 3 : 0)
+
+            if isLoading {
+                ThreeDotsLoadingView()
+                    .transition(.opacity)
+            }
+        }
+    }
+}
+
+extension View {
+    func loading(isLoading: Bool) -> some View {
+        self.modifier(LoadingModifier(isLoading: isLoading))
+    }
+}

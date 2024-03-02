@@ -74,6 +74,7 @@ struct ProductsListView: View {
                     }
                     .padding()
                 }
+                .loading(isLoading: contentState.isLoading)
                 Spacer()
             }
             
@@ -101,15 +102,20 @@ extension ProductsListView {
         Task {
             do {
                 if productId.isEmpty {
+                    contentState.isLoading = true
                     let loadedProducts = try await HomeServices.getProducts()
                     deleteData()
                     context.insert(loadedProducts)
+                    contentState.isLoading = false
                 } else {
+                    contentState.isLoading = true
                     let loadedProducts = try await HomeServices.getProducts(with: productId)
                     deleteData()
                     context.insert(loadedProducts)
+                    contentState.isLoading = false
                 }
             } catch {
+                contentState.isLoading = false
                 print("Error: \(error.localizedDescription)")
                 contentState.errorModel = .init(errorMessage: error.localizedDescription)
             }
@@ -119,10 +125,13 @@ extension ProductsListView {
     func getPopularProducts() async {
         Task {
             do {
+                contentState.isLoading = true
                 let loadedProducts = try await HomeServices.getPopularProducts(for: productId)
                 deleteData()
                 context.insert(loadedProducts)
+                contentState.isLoading = false
             } catch {
+                contentState.isLoading = false
                 print("Error: \(error.localizedDescription)")
                 contentState.errorModel = .init(errorMessage: error.localizedDescription)
             }
@@ -132,10 +141,13 @@ extension ProductsListView {
     func getTrendProducts() async {
         Task {
             do {
+                contentState.isLoading = true
                 let loadedProducts = try await HomeServices.getTrendProducts(for: productId)
                 deleteData()
                 context.insert(loadedProducts)
+                contentState.isLoading = false
             } catch {
+                contentState.isLoading = false
                 print("Error: \(error.localizedDescription)")
                 contentState.errorModel = .init(errorMessage: error.localizedDescription)
             }
