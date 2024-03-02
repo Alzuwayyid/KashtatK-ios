@@ -88,7 +88,7 @@ struct NeumorphicNavigationBar: View {
             // Title positioned absolutely in the center
             Text(title)
                 .bold()
-                .font(.system(size: titleType == .main ? 40 : 20)) // Conditional font size
+                .font(titleType == .main ? Font.bodyFont40 : Font.bodyFont20)
                 .frame(maxWidth: .infinity, alignment: titleType == .main ? .leading : .center)
             HStack {
                 Spacer()
@@ -383,4 +383,27 @@ struct FilterKeywordsScrollView: View {
             return filterKeywords.flatMap { $0.popularSearches }
         }
     }
+}
+
+extension Font {
+    static func bodyFont(size: CGFloat) -> Font {
+        return .custom("Gotham", size: size)
+    }
+    
+    static let bodyFont11 = bodyFont(size: 11)
+    static let bodyFont12 = bodyFont(size: 12)
+    static let bodyFont13 = bodyFont(size: 13)
+    static let bodyFont14 = bodyFont(size: 14)
+    static let bodyFont15 = bodyFont(size: 15)
+    static let bodyFont16 = bodyFont(size: 16)
+    static let bodyFont17 = bodyFont(size: 17)
+    static let bodyFont18 = bodyFont(size: 18)
+    static let bodyFont19 = bodyFont(size: 19)
+    static let bodyFont20 = bodyFont(size: 20)
+    static let bodyFont21 = bodyFont(size: 21)
+    static let bodyFont22 = bodyFont(size: 22)
+    static let bodyFont23 = bodyFont(size: 23)
+    static let bodyFont24 = bodyFont(size: 24)
+    static let bodyFont35 = bodyFont(size: 35)
+    static let bodyFont40 = bodyFont(size: 40)
 }

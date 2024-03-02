@@ -40,6 +40,8 @@
 		102C62952B937B460064A17B /* SearchView+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62942B937B460064A17B /* SearchView+View.swift */; };
 		102C62972B937E190064A17B /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62962B937E190064A17B /* Modifiers.swift */; };
 		102C629A2B93878D0064A17B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102C62992B93878D0064A17B /* InfoView.swift */; };
+		102C62A32B939DC60064A17B /* Gotham-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 102C62A12B939DC50064A17B /* Gotham-Bold.otf */; };
+		102C62A42B939DC60064A17B /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 102C62A22B939DC60064A17B /* Gotham-Light.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,9 @@
 		102C62942B937B460064A17B /* SearchView+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView+View.swift"; sourceTree = "<group>"; };
 		102C62962B937E190064A17B /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		102C62992B93878D0064A17B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		102C629E2B9396720064A17B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		102C62A12B939DC50064A17B /* Gotham-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Bold.otf"; sourceTree = "<group>"; };
+		102C62A22B939DC60064A17B /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Light.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +114,8 @@
 		101012432B8CB77200C8B0B9 /* KashtatK */ = {
 			isa = PBXGroup;
 			children = (
+				102C629E2B9396720064A17B /* Info.plist */,
+				102C629B2B9395790064A17B /* Fonts */,
 				102C627B2B8F722B0064A17B /* Modules */,
 				101C507C2B8CE62300118257 /* Common */,
 				101C507B2B8CE60C00118257 /* Theme */,
@@ -273,6 +280,15 @@
 			path = Info;
 			sourceTree = "<group>";
 		};
+		102C629B2B9395790064A17B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				102C62A12B939DC50064A17B /* Gotham-Bold.otf */,
+				102C62A22B939DC60064A17B /* Gotham-Light.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -337,6 +353,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				102C62A42B939DC60064A17B /* Gotham-Light.otf in Resources */,
+				102C62A32B939DC60064A17B /* Gotham-Bold.otf in Resources */,
 				1010124C2B8CB77400C8B0B9 /* Preview Assets.xcassets in Resources */,
 				101012492B8CB77400C8B0B9 /* Assets.xcassets in Resources */,
 			);
@@ -512,6 +530,7 @@
 				DEVELOPMENT_TEAM = RBJ2T4R8F4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KashtatK/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -543,6 +562,7 @@
 				DEVELOPMENT_TEAM = RBJ2T4R8F4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KashtatK/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

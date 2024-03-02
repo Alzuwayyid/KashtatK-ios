@@ -49,7 +49,7 @@ struct SplashScreenView: View {
                 .scaledToFit()
                 .frame(width: 200, height: 200)
             Text("KashtatK")
-                .font(.largeTitle)
+                .font(.bodyFont40)
                 .fontWeight(.bold)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

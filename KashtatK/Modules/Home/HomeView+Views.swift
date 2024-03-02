@@ -15,7 +15,8 @@ struct CartStateComponentView: View {
                 .softInnerShadow(RoundedRectangle(cornerRadius: 5))
             VStack(spacing: 10) {
                 Text("No items added to the bag")
-                    .font(.system(size: 16))
+                    .font(.bodyFont16)
+                    .bold()
                     .foregroundStyle(Color.black.opacity(0.6))
                 Image(systemName: "cross.fill")
                     .foregroundStyle(Color.black.opacity(0.6))
@@ -65,6 +66,7 @@ struct TrendingProductView: View {
             
             // Text
             Text(text)
+                .font(.bodyFont15)
                 .bold()
                 .foregroundStyle(Color.white)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)

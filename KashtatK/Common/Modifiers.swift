@@ -63,6 +63,7 @@ struct ToastBannerView: View {
 
     var body: some View {
         Text(message)
+            .font(.bodyFont14)
             .padding()
             .frame(maxWidth: .infinity) // Ensures full width
             .background(Color.Neumorphic.main.opacity(0.8))

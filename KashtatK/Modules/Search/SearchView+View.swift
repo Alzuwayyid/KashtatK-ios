@@ -19,6 +19,7 @@ struct SearchItem: View {
             HStack {
                 Image(systemName: leftImage)
                 Text(id)
+                    .font(.bodyFont16)
             }
             Spacer()
             Image(systemName: rightImage)
@@ -38,6 +39,7 @@ struct SearchBarView: View {
             HStack {
                 Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
                 Text("Search ...").foregroundColor(.Neumorphic.secondary)
+                    .font(.bodyFont19)
                 Spacer()
             }
             .padding(.horizontal, 16)
@@ -63,6 +65,7 @@ struct BaseSearchView: View {
             HStack {
                 Image(systemName: "magnifyingglass").foregroundColor(.Neumorphic.secondary).font(Font.body.weight(.bold))
                 TextField("Search ...", text: $text)
+                    .font(.bodyFont19)
                     .focused($isTextFieldFocused)
                 Spacer()
             }

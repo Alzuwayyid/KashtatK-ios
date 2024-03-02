@@ -26,17 +26,17 @@ struct ProductItem: View {
                     .frame(width: 120, height: 90)
                 Text(product?.productName ?? "Product")
                     .frame(width: 130, alignment: .leading)
-                    .font(.system(size: 14))
+                    .font(.bodyFont14)
                     .bold()
                     .lineLimit(1)
                 Text("\(String(format: "%.2f", product?.price ?? 0)) SR")
-                    .font(.system(size: 12))
+                    .font(.bodyFont12)
                 Button(action: {
                     didAddToCart()
                 }) {
                     HStack {
                         Text("Add to cart")
-                            .font(.system(size: 12))
+                            .font(.bodyFont11)
                             .bold()
                             .foregroundColor(Color.white)
                     }
@@ -60,6 +60,7 @@ struct FilterChipView: View {
     var body: some View {
         Text(data.title)
             .foregroundStyle(Color.black.opacity(0.5))
+            .font(.bodyFont15)
             .padding(10)
             .background(isSelected ? Color.gray : Color.Neumorphic.main)
             .cornerRadius(cornerRadius)

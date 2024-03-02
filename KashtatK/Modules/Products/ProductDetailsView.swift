@@ -35,15 +35,15 @@ struct ProductDetailsView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 5))
                         VStack(alignment: .leading, spacing: 5) {
                             Text(product?.productName ?? "Product Name")
-                                .font(.title)
+                                .font(.bodyFont35)
                                 .bold()
                             Text(product?.category ?? "Category")
-                                .font(.title2)
+                                .font(.bodyFont24)
                             Text("\(String(format: "%.2f", product?.price ?? 0)) SR")
-                                .font(.subheadline)
+                                .font(.bodyFont14)
                                 .bold()
                             Text(product?.desc ?? "Essential gadgets to keep you connected and powered up, no matter how remote your camping spot.")
-                                .font(.caption)
+                                .font(.bodyFont12)
                         }
                         HStack(spacing: 70) {
                             NeumorphicCircleView(mode: .cart(counter: product?.stock ?? 0))
@@ -62,6 +62,7 @@ struct ProductDetailsView: View {
                     showSuccessBanner = true
                 }) {
                     Text("Add to Cart").fontWeight(.bold).frame(maxWidth: .infinity)
+                        .font(.bodyFont16)
                 }
                 .softButtonStyle(RoundedRectangle(cornerRadius: 15),
                                  mainColor: Color.orange, textColor: Color.white)
