@@ -43,6 +43,23 @@ struct BaseView<Content: View>: View {
     }
 }
 
+struct NavBarItem {
+    init(icon: Image, mainColor: Color, secondaryColor: Color, counter: Int? = nil, action: @escaping () -> Void) {
+        self.icon = icon
+        self.mainColor = mainColor
+        self.secondaryColor = secondaryColor
+        self.counter = counter
+        self.action = action
+    }
+    
+    let id: UUID = UUID()
+    let icon: Image
+    let mainColor: Color
+    let secondaryColor: Color
+    let counter: Int?
+    let action: () -> Void
+}
+
 struct NeumorphicNavigationBar: View {
     enum TitleType {
         case main, subScreen
@@ -81,6 +98,21 @@ struct NeumorphicNavigationBar: View {
                         item.icon
                     }
                     .softButtonStyle(Circle(), mainColor: item.mainColor, textColor: item.secondaryColor, darkShadowColor: Color.Neumorphic.darkShadow, lightShadowColor: Color.Neumorphic.lightShadow)
+                    .overlay(
+                        Group {
+                            if let counter = item.counter, counter > 0 {
+                                Text("\(counter)")
+                                    .font(.caption2)
+                                    .bold()
+                                    .foregroundColor(.white)
+                                    .frame(width: 20, height: 20)
+                                    .background(Color.red)
+                                    .clipShape(Circle())
+                                    .offset(x: 20, y: -20)
+                                    .animation(.default, value: counter)
+                            }
+                        }
+                    )
                 }
             }
         }
@@ -102,14 +134,6 @@ extension View {
             .shadow(color: .black.opacity(0.2), radius: 2, x: 2, y: 2)
             .shadow(color: .white.opacity(0.7), radius: 2, x: -2, y: -2)
     }
-}
-
-struct NavBarItem {
-    let id: UUID = UUID()
-    let icon: Image
-    let mainColor: Color
-    let secondaryColor: Color
-    let action: () -> Void
 }
 
 struct SearchBarView: View {
