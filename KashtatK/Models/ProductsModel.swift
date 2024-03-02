@@ -84,7 +84,7 @@ class Hit: Codable {
     let images: String?
     let objectID: String?
 //    let highlightResult: HighlightResult?
-    @Relationship(deleteRule: .cascade) var highlightResult: HighlightResult?
+//    @Relationship(deleteRule: .cascade) var highlightResult: HighlightResult?
     
     enum CodingKeys: String, CodingKey {
         case productName = "Product Name"
@@ -111,7 +111,7 @@ class Hit: Codable {
         desc = try container.decode(String.self, forKey: .desc)
         images = try container.decode(String.self, forKey: .images)
         objectID = try container.decode(String.self, forKey: .objectID)
-        highlightResult = try container.decode(HighlightResult.self, forKey: .highlightResult)
+//        highlightResult = try container.decode(HighlightResult.self, forKey: .highlightResult)
     }
 
     // Encode function
@@ -126,7 +126,7 @@ class Hit: Codable {
         try container.encode(desc, forKey: .desc)
         try container.encode(images, forKey: .images)
         try container.encode(objectID, forKey: .objectID)
-        try container.encode(highlightResult, forKey: .highlightResult)
+//        try container.encode(highlightResult, forKey: .highlightResult)
     }
 }
 

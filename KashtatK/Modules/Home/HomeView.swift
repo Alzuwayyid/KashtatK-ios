@@ -45,7 +45,7 @@ struct HomeView: View {
                             Text("Popular Searches")
                                 .foregroundStyle(Color.black.opacity(0.5))
                             FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .popularSearches, cornerRadius: 6, horizontalPadding: 12, onChipSelected: { id in
-                                homeRouter.pushProductsList(with: id ?? "")
+                                homeRouter.pushProductsList(with: id ?? "", type: .popular)
                             })
                         }
                         if cartData.isEmpty {

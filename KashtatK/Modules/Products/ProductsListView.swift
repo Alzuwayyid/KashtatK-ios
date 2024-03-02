@@ -10,6 +10,10 @@ import Neumorphic
 import SwiftData
 
 struct ProductsListView: View {
+    enum ProductType {
+        case all, popular, trend
+    }
+    
     // MARK: Properities
     @State var productId: String
     @Environment(\.modelContext) var context
@@ -19,6 +23,7 @@ struct ProductsListView: View {
     @Query var cartData: [CartModel]
     @State var contentState: ContentStates = ContentStates()
     @State private var selectedChipId: String?
+    var type: ProductType = .all
     var neumorphicNavigationBarItems: [NavBarItem] = []
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
@@ -42,18 +47,20 @@ struct ProductsListView: View {
                         }
                     }
                 )
-                FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .filterKeyWords, onChipSelected: { id in
-                    if selectedChipId == id {
-                        selectedChipId = nil
-                    } else {
-                        selectedChipId = id
-                    }
-                    productId = id ?? ""
-                    Task {
-                        await getProducts()
-                    }
-                })
-                .padding(.horizontal, 16)
+                if type == .all {
+                    FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .filterKeyWords, onChipSelected: { id in
+                        if selectedChipId == id {
+                            selectedChipId = nil
+                        } else {
+                            selectedChipId = id
+                        }
+                        productId = id ?? ""
+                        Task {
+                            await getProducts()
+                        }
+                    })
+                    .padding(.horizontal, 16)
+                }
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(data.first?.hits ?? []) { product in
@@ -74,7 +81,14 @@ struct ProductsListView: View {
         .onLoad {
             router.hideTabBar()
             Task {
-                await getProducts()
+                switch type {
+                    case .all:
+                        await getProducts()
+                    case .popular:
+                        await getPopularProducts()
+                    case .trend:
+                        await getProducts()
+                }
             }
         }
         .navigationBarBackButtonHidden()
@@ -101,7 +115,22 @@ extension ProductsListView {
             }
         }
     }
-    
+    @MainActor
+    func getPopularProducts() async {
+        Task {
+            do {
+                let loadedProducts = try await HomeServices.getPopularProducts(for: productId)
+                deleteData()
+                context.insert(loadedProducts)
+            } catch {
+                print("Error: \(error.localizedDescription)")
+                contentState.errorModel = .init(errorMessage: error.localizedDescription)
+            }
+        }
+    }
+}
+// MARK: Models
+extension ProductsListView {
     func deleteData() {
         do {
             try context.delete(model: Products.self)
