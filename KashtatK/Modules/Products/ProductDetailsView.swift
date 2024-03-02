@@ -12,6 +12,7 @@ struct ProductDetailsView: View {
     // MARK: Properities
     @EnvironmentObject var router: HomeRouter
     @Environment(\.modelContext) var context
+    @State private var showSuccessBanner = false
     var neumorphicNavigationBarItems: [NavBarItem] = []
     var product: Hit?
     
@@ -59,6 +60,7 @@ struct ProductDetailsView: View {
                 Spacer()
                 Button(action: {
                     addToCart()
+                    showSuccessBanner = true
                 }) {
                     Text("Add to Cart").fontWeight(.bold).frame(maxWidth: .infinity)
                 }
@@ -68,6 +70,7 @@ struct ProductDetailsView: View {
                 Spacer()
             }
         }
+        .toastBanner(message: "Added Successfully to the Cart", status: .success, show: $showSuccessBanner)
         .navigationBarBackButtonHidden()
         .onAppear {
             router.hideTabBar()

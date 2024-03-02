@@ -53,6 +53,7 @@ struct HomeView: View {
                             LongComponentView(items: filterKeywords) { id in
                                 homeRouter.pushProductsList(with: id ?? "", type: .trend)
                             }
+                            .frame(height: 230)
                         }
                         if cartData.isEmpty {
                             CartStateComponentView()
