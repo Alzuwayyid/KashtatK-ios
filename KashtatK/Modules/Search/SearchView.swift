@@ -49,7 +49,10 @@ struct SearchView: View {
                         }
                     }
                     .padding(.horizontal, 32)
-                    if let hits = data?.hits{
+                    if let hits = data?.hits {
+                        if isTextFieldFouced && hits.isEmpty {
+                            Text("No results found")
+                        }
                         ForEach(hits, id: \.id) { product in
                             SearchItem(id: product.productName) { }
                             .onTapGesture {
