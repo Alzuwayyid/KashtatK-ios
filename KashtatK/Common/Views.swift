@@ -468,3 +468,61 @@ extension View {
         self.modifier(LoadingModifier(isLoading: isLoading))
     }
 }
+
+enum ToastStatus {
+    case success, error
+}
+
+struct ToastBannerView: View {
+    let message: String
+    let status: ToastStatus
+
+    var body: some View {
+        Text(message)
+            .padding()
+            .frame(maxWidth: .infinity) // Ensures full width
+            .background(Color.Neumorphic.main.opacity(0.8))
+            .foregroundColor(.black)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(status == .success ? Color.green : Color.red, lineWidth: 1)
+            )
+            .cornerRadius(10)
+            .shadow(radius: 5)
+            .padding(.horizontal, 10) // Horizontal padding
+    }
+}
+
+struct ToastBannerModifier: ViewModifier {
+    let message: String
+    let status: ToastStatus
+    @Binding var show: Bool
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            
+            GeometryReader { geometry in
+                if show {
+                    ToastBannerView(message: message, status: status)
+                        .frame(width: geometry.size.width)
+                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                                withAnimation {
+                                    show = false
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    }
+}
+
+extension View {
+    func toastBanner(message: String, status: ToastStatus, show: Binding<Bool>) -> some View {
+        self.modifier(ToastBannerModifier(message: message, status: status, show: show))
+    }
+}
+

@@ -29,6 +29,7 @@ struct ProductsListView: View {
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
+    @State private var showSuccessBanner = false
     
     var body: some View {
         BaseView {
@@ -66,6 +67,7 @@ struct ProductsListView: View {
                         ForEach(data.first?.hits ?? []) { product in
                             ProductItem(product: product) {
                                 addToCart(with: product)
+                                showSuccessBanner = true
                             }
                                 .onTapGesture {
                                     router.pushProductDetails(with: product)
@@ -92,6 +94,7 @@ struct ProductsListView: View {
                 }
             }
         }
+        .toastBanner(message: "Added Successfully to the Cart", status: .success, show: $showSuccessBanner)
         .navigationBarBackButtonHidden()
     }
 }
