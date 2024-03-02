@@ -32,8 +32,8 @@ struct TabViews: View {
                 case .home:
                         HomeView(homeRouter: homeRouter)
                             .environmentObject(homeRouter)
-                case .settings:
-                    SettingsView()
+                case .info:
+                        InfoView()
                 }
                 // The custom tab bar view at the bottom of the screen.
                 if homeRouter.isTabBarVisible {
@@ -98,7 +98,7 @@ extension TabViews {
 }
 // Enumeration to define the tabs available in the application.
 enum Tab {
-    case home, settings
+    case home, info
 }
 
 // Custom tab bar view to allow users to switch between tabs.
@@ -124,7 +124,7 @@ struct CustomTabBar: View {
                 Spacer()
                 
                 // Settings tab button.
-                tabButton(for: .settings, iconName: "gearshape.fill", label: "Settings")
+                tabButton(for: .info, iconName: "info.circle", label: "Info")
                     .padding(.trailing, 60)
             }
             .padding(.top, 15)
@@ -149,28 +149,3 @@ struct CustomTabBar: View {
         .softButtonStyle(RoundedRectangle(cornerRadius: 15)) // Applying neumorphic style to the button.
     }
 }
-
-
-struct SettingsView: View {
-    @State private var showBackButton = true
-    var body: some View {
-        // Your Settings view content here
-        VStack {
-            NeumorphicNavigationBar(
-                items: [
-                    NavBarItem(icon: Image(systemName: "house.fill"), mainColor: Color.white, secondaryColor: Color.blue) { print("Home tapped") },
-                    NavBarItem(icon: Image(systemName: "person.fill"), mainColor: Color.white, secondaryColor: Color.blue) { print("Profile tapped") }
-                ],
-                showBackButton: showBackButton, title: "Settings",
-                titleType: .main,
-                onBack: {
-                    // Handle back navigation
-                    showBackButton = false
-                    // Pop view from your custom navigation stack here
-                }
-            )
-            Text("Settings View").frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-    }
-}
-
