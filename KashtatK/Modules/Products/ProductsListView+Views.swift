@@ -12,6 +12,7 @@ import SwiftData
 struct ProductItem: View {
     // MARK: Properities
     var product: Hit?
+    var didAddToCart: () -> ()
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -30,7 +31,7 @@ struct ProductItem: View {
                 Text("\(String(format: "%.2f", product?.price ?? 0)) SR")
                     .font(.system(size: 12))
                 Button(action: {
-                    
+                    didAddToCart()
                 }) {
                     HStack {
                         Text("Add to cart")

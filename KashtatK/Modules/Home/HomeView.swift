@@ -15,6 +15,7 @@ struct HomeView: View {
     @StateObject var homeRouter: HomeRouter
     @Environment(\.modelContext) var context
     @Query var data: [Products]
+    @Query var cartData: [CartModel]
     @State private var showBackButton = true
     @State var contentState: ContentStates = ContentStates()
     @State var text: String = ""
@@ -40,11 +41,6 @@ struct HomeView: View {
                         .padding(.bottom, 0)
                 }
                 .padding(.horizontal, 16)
-            }
-            .onAppear {
-                Task {
-//                    await getProducts()
-                }
             }
     }
 }

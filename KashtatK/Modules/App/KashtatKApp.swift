@@ -16,6 +16,6 @@ struct KashtatKApp: App {
             TabViews()
                 .preferredColorScheme(.light)
         }
-        .modelContainer(for: [Products.self, Hit.self, HighlightResult.self, Category.self, SearchModel.self, FilterModel.self, SearchKeywords.self])
+        .modelContainer(for: [Products.self, Hit.self, HighlightResult.self, Category.self, SearchModel.self, FilterModel.self, CartModel.self, SearchKeywords.self])
     }
 }

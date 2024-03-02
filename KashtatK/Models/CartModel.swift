@@ -9,6 +9,9 @@ import SwiftData
 
 @Model
 class CartModel {
-    @Relationship(deleteRule: .cascade) var products = [Hit]()
-    init() { }
+    @Relationship(deleteRule: .cascade) var product: Hit?
+    
+    init(product: Hit? = nil) {
+        self.product = product
+    }
 }

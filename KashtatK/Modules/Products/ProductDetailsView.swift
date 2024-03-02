@@ -11,6 +11,7 @@ import Neumorphic
 struct ProductDetailsView: View {
     // MARK: Properities
     @EnvironmentObject var router: HomeRouter
+    @Environment(\.modelContext) var context
     var neumorphicNavigationBarItems: [NavBarItem] = []
     var product: Hit?
     
@@ -57,7 +58,7 @@ struct ProductDetailsView: View {
                 .padding(.horizontal, 16)
                 Spacer()
                 Button(action: {
-                    // TODO: Save it to the Cart
+                    addToCart()
                 }) {
                     Text("Add to Cart").fontWeight(.bold).frame(maxWidth: .infinity)
                 }
@@ -70,6 +71,18 @@ struct ProductDetailsView: View {
         .navigationBarBackButtonHidden()
         .onAppear {
             router.hideTabBar()
+        }
+    }
+}
+// MARK: Helper method
+extension ProductDetailsView {
+    func addToCart() {
+        let cart = CartModel(product: product)
+        context.insert(cart)
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save cart.")
         }
     }
 }

@@ -68,7 +68,9 @@ struct ProductsListView: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(data.first?.hits ?? []) { product in
-                            ProductItem(product: product)
+                            ProductItem(product: product) {
+                                addToCart(with: product)
+                            }
                                 .onTapGesture {
                                     router.pushProductDetails(with: product)
                                 }
@@ -80,7 +82,7 @@ struct ProductsListView: View {
             }
             
         }
-        .onAppear {
+        .onLoad {
             router.hideTabBar()
             Task {
                 await getProducts()
@@ -116,6 +118,16 @@ extension ProductsListView {
             try context.delete(model: Products.self)
         } catch {
             print("Failed to delete all.")
+        }
+    }
+    
+    func addToCart(with product: Hit) {
+        let cart = CartModel(product: product)
+        context.insert(cart)
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save cart.")
         }
     }
 }
