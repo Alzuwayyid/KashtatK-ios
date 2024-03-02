@@ -48,7 +48,6 @@ struct BaseNavigationStack<Content: View>: View {
     init(router: Router,
          title: String,
          baseColor: SwiftUI.Color = .clear,
-         neumorphicNavigationBarItems: [NavBarItem] = [],
          isLoading: Bool = false,
          isHidden: Bool = false,
          @ViewBuilder content: () -> Content,
@@ -63,21 +62,12 @@ struct BaseNavigationStack<Content: View>: View {
         self.content = content()
         self.leftBarButton = leftBarButton
         self.rightBarButton = rightBarButton
-        self.neumorphicNavigationBarItems = neumorphicNavigationBarItems
         self.showBackButton = showBackButton
         self.onBack = onBack
     }
     
     var body: some View {
         NavigationStack(path: router.navigationPath) {
-                NeumorphicNavigationBar(
-                    items: neumorphicNavigationBarItems,
-                    showBackButton: showBackButton,
-                    title: title, 
-                    titleType: .main,
-                    onBack: onBack
-                )
-                .background(Color.Neumorphic.main)
                 content
                 .background(Color.Neumorphic.main)
 //            .navigationBarTitle(title)
@@ -95,7 +85,6 @@ struct BaseNavigationStack<Content: View>: View {
                 router.view(spec: spec, route: .navigation)
             }
         }
-//        .toolbarRole(.editor)
         .sheet(item: router.presentingSheet) { spec in
             router.view(spec: spec, route: .sheet)
         }

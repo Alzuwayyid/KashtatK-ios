@@ -98,14 +98,6 @@ extension SearchView {
     }
 }
 
-//// SwiftUI Preview
-//struct ProductsListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchView()
-//            .previewLayout(.sizeThatFits)
-//    }
-//}
-
 struct SearchItem: View {
     // MARK: Properities
     var id: String

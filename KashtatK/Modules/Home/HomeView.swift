@@ -19,17 +19,24 @@ struct HomeView: View {
     @State private var showBackButton = true
     @State var contentState: ContentStates = ContentStates()
     @State var text: String = ""
-    
+    var neumorphicNavigationBarItems = [
+        NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue) {
+            print("Home tapped")
+            //        homeRouter.pushProductsList()
+        },
+        NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green) {
+            
+            //        homeRouter.pushProductsList()
+        } ]
     var body: some View {
-        BaseNavigationStack(router: homeRouter, title: "Home", neumorphicNavigationBarItems: [
-            NavBarItem(icon: Image(systemName: "cart.fill"), mainColor: Color.white, secondaryColor: Color.blue) {
-                print("Home tapped")
-                homeRouter.pushProductsList()
-            },
-            NavBarItem(icon: Image(systemName: "cross.fill"), mainColor: Color.white, secondaryColor: Color.green) {
-                
-                homeRouter.pushProductsList()
-            } ]) {
+        BaseNavigationStack(router: homeRouter, title: "") {
+            VStack {
+                NeumorphicNavigationBar(
+                    items: neumorphicNavigationBarItems,
+                    showBackButton: false,
+                    title: "Home",
+                    titleType: .main
+                )
                 ZStack(alignment: .top) {
                     Color.Neumorphic.main.ignoresSafeArea()
                     SearchBarView {
@@ -37,11 +44,12 @@ struct HomeView: View {
                     }
                     Text("CONTENT")
                         .padding(.top, 300)
-                        Spacer()
-                        .padding(.bottom, 0)
+                    Spacer()
                 }
                 .padding(.horizontal, 16)
             }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 // MARK: API Calls
