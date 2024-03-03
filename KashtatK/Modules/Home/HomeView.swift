@@ -71,19 +71,3 @@ struct HomeView: View {
         .navigationBarBackButtonHidden()
     }
 }
-// MARK: API Calls
-extension HomeView {
-    @MainActor
-    func getProducts() async {
-        Task {
-            do {
-                let loadedProducts = try await HomeServices.getPopularProducts(for: "tent")
-                context.insert(loadedProducts)
-                try context.save()
-            } catch {
-                print("Error: \(error.localizedDescription)")
-                contentState.errorModel = .init(errorMessage: error.localizedDescription)
-            }
-        }
-    }
-}
