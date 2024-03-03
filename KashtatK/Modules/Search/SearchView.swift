@@ -78,7 +78,10 @@ struct SearchView: View {
         }
         .background(Color.Neumorphic.main)
         .swipeToDismiss {
-            router.dismiss()
+            withAnimation {
+                router.dismiss()
+                router.showTabBar()
+            }
         }
     }
     
