@@ -89,7 +89,9 @@ struct ProductsListView: View {
             }
         }
         .toastBanner(message: "Added Successfully to the Cart", status: .success, show: $showSuccessBanner)
-        .navigationBarBackButtonHidden()
+        .swipeToDismiss {
+            router.dismiss()
+        }
     }
 }
 // MARK: API Calls

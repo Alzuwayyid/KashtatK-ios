@@ -110,3 +110,24 @@ extension View {
         self.modifier(ToastBannerModifier(message: message, status: status, show: show))
     }
 }
+
+struct SwipeToDismissModifier: ViewModifier {
+    let onDismiss: () -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .navigationBarBackButtonHidden()
+            .gesture(DragGesture(minimumDistance: 50, coordinateSpace: .local)
+                .onEnded { value in
+                    if value.translation.width > 0 { // Detects swipe right
+                        onDismiss()
+                    }
+                })
+    }
+}
+
+extension View {
+    func swipeToDismiss(onDismiss: @escaping () -> Void) -> some View {
+        self.modifier(SwipeToDismissModifier(onDismiss: onDismiss))
+    }
+}

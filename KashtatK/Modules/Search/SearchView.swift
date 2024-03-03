@@ -77,7 +77,9 @@ struct SearchView: View {
             router.hideTabBar()
         }
         .background(Color.Neumorphic.main)
-        .navigationBarBackButtonHidden()
+        .swipeToDismiss {
+            router.dismiss()
+        }
     }
     
 }
