@@ -34,38 +34,41 @@ struct HomeView: View {
                     title: "Home",
                     titleType: .main
                 )
-                ZStack(alignment: .top) {
-                    Color.Neumorphic.main.ignoresSafeArea()
-                    VStack(spacing: 40) {
-                        SearchBarView {
-                            homeRouter.pushSearchScreen()
-                        }
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Popular Searches")
-                                .foregroundStyle(Color.black.opacity(0.5))
-                                .font(.bodyFont20)
-                            FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .popularSearches, cornerRadius: 6, horizontalPadding: 12, onChipSelected: { id in
-                                homeRouter.pushProductsList(with: id ?? "", type: .popular)
-                            })
-                        }
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Trending")
-                                .font(.bodyFont20)
-                                .foregroundStyle(Color.black.opacity(0.5))
-                            LongComponentView(items: filterKeywords) { id in
-                                homeRouter.pushProductsList(with: id ?? "", type: .trend)
+                ScrollView {
+                    ZStack(alignment: .top) {
+                        Color.Neumorphic.main.ignoresSafeArea()
+                        VStack(spacing: 40) {
+                            SearchBarView {
+                                homeRouter.pushSearchScreen()
                             }
-                            .frame(height: 210)
-                        }
-                        if cartData.isEmpty {
-                            CartStateComponentView()
-                                .onTapGesture {
-                                    homeRouter.pushProductsList()
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Popular Searches")
+                                    .foregroundStyle(Color.black.opacity(0.5))
+                                    .font(.bodyFont20)
+                                FilterKeywordsScrollView(filterKeywords: filterKeywords, keywordsType: .popularSearches, cornerRadius: 6, horizontalPadding: 12, onChipSelected: { id in
+                                    homeRouter.pushProductsList(with: id ?? "", type: .popular)
+                                })
+                            }
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Trending")
+                                    .font(.bodyFont20)
+                                    .foregroundStyle(Color.black.opacity(0.5))
+                                LongComponentView(items: filterKeywords) { id in
+                                    homeRouter.pushProductsList(with: id ?? "", type: .trend)
                                 }
+                                .frame(height: 210)
+                            }
+                            if cartData.isEmpty {
+                                CartStateComponentView()
+                                    .onTapGesture {
+                                        homeRouter.pushProductsList()
+                                    }
+                            }
                         }
                     }
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
+                .scrollIndicators(.never)
             }
         }
         .navigationBarBackButtonHidden()
